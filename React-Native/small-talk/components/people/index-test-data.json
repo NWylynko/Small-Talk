@@ -1,0 +1,57 @@
+[
+    {
+      "id": "1",
+      "user": {
+          "id": 1,
+          "nickname": "Mum"
+      },
+      "last": {
+          "msg": "hey",
+          "timestamp": 2345344
+      }
+    },
+    {
+      "id": "2",
+      "user": {
+          "id": 1,
+          "nickname": "Dad"
+      },
+      "last": {
+          "msg": "sdfgsdfgzxcbsadf adfg aerg ear g",
+          "timestamp": 23453454
+      }
+    },
+    {
+      "id": "3",
+      "user": {
+          "id": 1,
+          "nickname": "adfgadfg"
+      },
+      "last": {
+          "msg": "sadfgs dfgsdf gsdf gsd",
+          "timestamp": 234534456
+      }
+    },
+    {
+      "id": "4",
+      "user": {
+          "id": 1,
+          "nickname": "Msdfgsdfgsdfgsdfgum"
+      },
+      "last": {
+          "msg": "df gsdfg sdfg sdfg sdfg ",
+          "timestamp": 2345
+      }
+    },
+    {
+      "id": "5",
+      "user": {
+          "id": 1,
+          "nickname": "sdfhgcvbadfgasdfg"
+      },
+      "last": {
+          "msg": "sd fgwerg dfg sdfg",
+          "timestamp": 234534
+      }
+    }
+  ]

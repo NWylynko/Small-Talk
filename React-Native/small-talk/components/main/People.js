@@ -4,11 +4,12 @@ import Constants from "expo-constants";
 
 import config from '../config.json';
 
-export default function people({ user }) {
+export default function People_Select({ user, show }) {
 
   onPress = () => {
-    console.log("pressed")
-  };
+    show()
+    
+  }
 
 
     return (

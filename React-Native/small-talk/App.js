@@ -1,16 +1,14 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
-import Messages from './components/main/Messages';
-import Input from './components/main/Input';
-import People from './components/main/People';
-
-import config from './components/config.json';
+import Messages from "./components/main/Messages";
+import Input from "./components/main/Input";
+import People_Select from "./components/main/People";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <People user={"Mum"} />
+      <People_Select user={"Person"} />
       <Messages />
       <Input />
     </View>
@@ -20,8 +18,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });

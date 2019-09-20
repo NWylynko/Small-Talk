@@ -2,41 +2,7 @@ import React from "react";
 import { SafeAreaView, View, FlatList, StyleSheet, Text } from "react-native";
 
 import config from "../config.json";
-
-const DATA = [
-  {
-    id: "1",
-    user: true,
-    msg:
-      "ksldjfgh iouasdfh giuopadsfhgiouafdguiopahsdiogj baskodjf hiauhs dfpiua hsdfkjohasdjk lfahslk df",
-    timestamp: 24356
-  },
-  {
-    id: "2",
-    user: false,
-    msg: "Second Item",
-    timestamp: 2435645
-  },
-  {
-    id: "3",
-    user: false,
-    msg:
-      "aiodugh ioausdf gakj sdfghioasdghiasdfg iohasdfghasid ofgaiosdf goiuas dfgioa sdfogiasiofdg aoihdf goia fsdgoia s",
-    timestamp: 243565646
-  },
-  {
-    id: "4",
-    user: true,
-    msg: "Forth Item",
-    timestamp: 24356456745
-  },
-  {
-    id: "5",
-    user: true,
-    msg: "Yeet Item",
-    timestamp: 24356456456456
-  }
-];
+import DATA from "./Messages-test-data.json";
 
 function time(timestamp) {
   var today = new Date(timestamp);
