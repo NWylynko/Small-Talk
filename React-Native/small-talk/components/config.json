@@ -1,0 +1,18 @@
+{
+  "style": {
+    "colors": {
+      "input": {
+        "border": "#ffdc7a"
+      },
+      "messages": {
+        "message": {
+          "me": "#ffa866",
+          "them": "#ff6666"
+        }
+      },
+      "people": {
+        "button": "#fa82de"
+      }
+    }
+  }
+}
