@@ -53,5 +53,38 @@
           "msg": "sd fgwerg dfg sdfg",
           "timestamp": 234534
       }
+    },
+    {
+      "id": "6",
+      "user": {
+          "id": 1,
+          "nickname": "sdfhgcvbadfgasdfg"
+      },
+      "last": {
+          "msg": "sd fgwerg dfg sdfg",
+          "timestamp": 234534
+      }
+    },
+    {
+      "id": "7",
+      "user": {
+          "id": 1,
+          "nickname": "sdfhgcvbadfgasdfg"
+      },
+      "last": {
+          "msg": "sd fgwerg dfg sdfg",
+          "timestamp": 234534
+      }
+    },
+    {
+      "id": "8",
+      "user": {
+          "id": 1,
+          "nickname": "sdfhgcvbadfgasdfg"
+      },
+      "last": {
+          "msg": "sd fgwerg dfg sdfg",
+          "timestamp": 234534
+      }
     }
   ]
