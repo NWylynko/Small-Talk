@@ -4,8 +4,9 @@ import { createStackNavigator } from "react-navigation-stack";
 
 import Home from "./screens/main/index";
 import People from "./screens/people/index";
+import Contact from "./screens/contact/index";
 
-const Main = createStackNavigator({
+const App = createStackNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
@@ -18,6 +19,12 @@ const Main = createStackNavigator({
       header: null
     }
   },
+  Contact: {
+    screen: Contact,
+    navigationOptions: {
+      header: null
+    }
+  },
 });
 //const AuthStack = createStackNavigator({ SignIn: SignIn, SignIn2: SignIn2, SignUp: SignUp });
 
@@ -25,7 +32,7 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       //AuthLoading: AuthLoadingScreen,
-      App: Main
+      App,
       //Auth: AuthStack,
     },
     {

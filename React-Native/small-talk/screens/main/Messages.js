@@ -4,10 +4,7 @@ import { SafeAreaView, View, FlatList, StyleSheet, Text } from "react-native";
 import config from "../config.json";
 import DATA from "./Messages-test-data.json";
 
-function time(timestamp) {
-  var today = new Date(timestamp);
-  return today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-}
+import time from "../../tools/time";
 
 function Item({ msg, user, timestamp }) {
   return (

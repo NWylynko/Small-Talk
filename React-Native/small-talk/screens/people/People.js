@@ -6,12 +6,12 @@ import config from '../config.json';
 
 export default function People_Select({ user, navigation, to}) {
 
-  onPress = () => {
+  function onPress() {
     navigation.navigate(to)
   }
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={this.onPress}>
+        <TouchableOpacity style={styles.button} onPress={onPress}>
           <Text>{ user }</Text>
         </TouchableOpacity>
       </View>
