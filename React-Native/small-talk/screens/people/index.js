@@ -21,11 +21,12 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 function Item({ user, last, navigation }) {
 
   function onPress(){
-    console.log(user.id)
+    navigation.navigate("Home", { user })
   }
 
   function onLongPress(){
-    navigation.navigate("Contact")
+    user_id = user.id
+    navigation.navigate("Contact", { user_id })
   }
 
   return (
@@ -34,12 +35,16 @@ function Item({ user, last, navigation }) {
       <Text style={styles.last}>{last.msg}</Text>
       <Text style={styles.time}>{time(last.timestamp)}</Text>
     </TouchableOpacity>
-  );
+  )
 }
 
-export default function People(props) {
-  function onpress() {
-    console.log("yeet");
+export default function People({ navigation }) {
+  function onpress_add() {
+    navigation.navigate("Add")
+  }
+
+  function onpress_config() {
+    console.log("config")
   }
 
   return (
@@ -55,15 +60,15 @@ export default function People(props) {
       <FlatList
         style={styles.list}
         data={DATA}
-        renderItem={({ item }) => <Item user={item.user} last={item.last} navigation={props.navigation} />}
+        renderItem={({ item }) => <Item user={item.user} last={item.last} navigation={navigation} />}
         keyExtractor={item => item.id}
       />
 
       <View style={styles.icons}>
-        <TouchableOpacity onPress={onpress}>
+        <TouchableOpacity onPress={onpress_config}>
           <Text style={styles.icon} >♕ Config  </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={onpress}>
+        <TouchableOpacity onPress={onpress_add}>
           <Text style={styles.icon} >  Add ♔</Text>
         </TouchableOpacity>
       </View>

@@ -5,6 +5,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import Home from "./screens/main/index";
 import People from "./screens/people/index";
 import Contact from "./screens/contact/index";
+import Add from "./screens/add/index";
 
 const App = createStackNavigator({
   Home: {
@@ -25,8 +26,14 @@ const App = createStackNavigator({
       header: null
     }
   },
+  Add: {
+    screen: Add,
+    navigationOptions: {
+      header: null
+    }
+  },
 });
-//const AuthStack = createStackNavigator({ SignIn: SignIn, SignIn2: SignIn2, SignUp: SignUp });
+//const AuthStack = createStackNavigator({ SignIn: SignIn, SignIn2: SignIn2, SignUp: SignUp })
 
 export default createAppContainer(
   createSwitchNavigator(
@@ -39,4 +46,4 @@ export default createAppContainer(
       initialRouteName: "App"
     }
   )
-);
+)

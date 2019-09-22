@@ -17,21 +17,26 @@ import time from "../../tools/time";
 import DATA from "./index-test-data.json";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function Contact(props) {
-  const [nickname, onChangenickname] = React.useState(DATA.nickname);
+export default function Contact({ navigation }) {
+  const [nickname, onChangenickname] = React.useState(DATA.nickname)
+
+  const user_id = navigation.state.params.user_id
+
+  console.log(user_id)
 
   function onPress_Apply() {
-    props.navigation.goBack()
+    navigation.goBack()
   }
 
   function onPress_Cancel() {
-    props.navigation.goBack()
+    navigation.goBack()
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.keyboard} behavior="padding" enabled>
         <Text style={styles.name}>{DATA.name}</Text>
+        <Text style={styles.username}>{DATA.username}</Text>
         <View style={{ flexDirection: "row", alignSelf: "center" }}>
           <Text>Nickname: </Text>
           <TextInput
@@ -51,7 +56,7 @@ export default function Contact(props) {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -65,6 +70,11 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 50,
+    textAlign: "center"
+  },
+  username: {
+    fontSize: 30,
+    color: "lightgrey",
     textAlign: "center"
   },
   nickname: {
@@ -84,4 +94,4 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderWidth: 3,
   }
-});
+})

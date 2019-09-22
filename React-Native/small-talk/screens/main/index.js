@@ -5,11 +5,10 @@ import Messages from "./Messages";
 import Input from "./Input";
 import People_Select from "../people/People";
 
-export default function App(props) {
-
+export default function App({ navigation }) {
   return (
     <View style={styles.container}>
-      <People_Select user={"Person"} to={"People"} navigation={props.navigation} />
+      <People_Select user={"Person"} to={"People"} navigation={navigation} />
       <Messages />
       <Input />
     </View>
