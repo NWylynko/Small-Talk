@@ -10,7 +10,7 @@ export default function Input() {
     <KeyboardAvoidingView style={styles.keyboard} behavior="padding" enabled>
       <TextInput
         style={styles.input}
-        onChangeText={text => onChangeText(text)}
+        onChangeText={text => onChange_userSearch(text)}
         value={value}
         onSubmitEditing={data => onSubmitEditing(data)}
         placeholder="Search..."

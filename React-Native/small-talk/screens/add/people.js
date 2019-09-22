@@ -1,13 +1,13 @@
 import React from "react";
 import { SafeAreaView, View, FlatList, StyleSheet, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 import config from "../config.json";
 import DATA from "./people-test-data.json";
 
 import time from "../../tools/time";
 
 function Item({ item }) {
-  console.log(item)
   return (
     <TouchableOpacity>
     <View style={styles.item}>
