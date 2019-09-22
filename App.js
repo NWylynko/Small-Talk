@@ -7,7 +7,7 @@ import People from "./screens/people/index";
 import Contact from "./screens/contact/index";
 import Add from "./screens/add/index";
 
-import Auth from "./screens/auth/index";
+import Login from "./screens/auth/index";
 import Check from "./screens/auth/check";
 
 const App = createStackNavigator({
@@ -45,7 +45,7 @@ const Auth = createStackNavigator({
     }
   },
   Login: {
-    screen: Auth,
+    screen: Login,
     navigationOptions: {
       header: null
     }
