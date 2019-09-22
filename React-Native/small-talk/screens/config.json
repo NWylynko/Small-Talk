@@ -12,6 +12,11 @@
       },
       "people": {
         "button": "#fa82de"
+      },
+      "add": {
+        "input": {
+          "border": "#8bb4f7"
+        }
       }
     }
   }

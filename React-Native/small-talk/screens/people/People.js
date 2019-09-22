@@ -1,34 +1,32 @@
-import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import React, { Component } from "react";
+import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import Constants from "expo-constants";
 
-import config from '../config.json';
+import config from "../config.json";
 
-export default function People_Select({ user, navigation, to}) {
-
+export default function People_Select({ user, navigation, to }) {
   function onPress() {
-    navigation.navigate(to)
+    navigation.navigate(to);
   }
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={onPress}>
-          <Text>{ user }</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
+        <Text>{user}</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    justifyContent: "center",
     paddingHorizontal: 10,
     marginTop: Constants.statusBarHeight,
     width: "100%"
   },
   button: {
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: config.style.colors.people.button,
-    padding: 10,
-  },
+    padding: 10
+  }
 });

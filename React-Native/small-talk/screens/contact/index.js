@@ -18,18 +18,18 @@ import DATA from "./index-test-data.json";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Contact({ navigation }) {
-  const [nickname, onChangenickname] = React.useState(DATA.nickname)
+  const [nickname, onChangenickname] = React.useState(DATA.nickname);
 
-  const user_id = navigation.state.params.user_id
+  const user_id = navigation.state.params.user_id;
 
-  console.log(user_id)
+  console.log(user_id);
 
   function onPress_Apply() {
-    navigation.goBack()
+    navigation.goBack();
   }
 
   function onPress_Cancel() {
-    navigation.goBack()
+    navigation.goBack();
   }
 
   return (
@@ -56,14 +56,14 @@ export default function Contact({ navigation }) {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
     width: "100%",
-    height: "100%",
+    height: "100%"
   },
   keyboard: {
     width: "100%"
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   buttons_view: {
     flexDirection: "row",
-    alignSelf: "center",
+    alignSelf: "center"
   },
   button: {
     fontSize: 25,
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
   buttons: {
     marginVertical: 10,
     marginHorizontal: 5,
-    borderWidth: 3,
+    borderWidth: 3
   }
-})
+});

@@ -31,7 +31,7 @@ const App = createStackNavigator({
     navigationOptions: {
       header: null
     }
-  },
+  }
 });
 //const AuthStack = createStackNavigator({ SignIn: SignIn, SignIn2: SignIn2, SignUp: SignUp })
 
@@ -39,11 +39,11 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       //AuthLoading: AuthLoadingScreen,
-      App,
+      App
       //Auth: AuthStack,
     },
     {
       initialRouteName: "App"
     }
   )
-)
+);

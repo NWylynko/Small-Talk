@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    marginTop: 5,
+    marginTop: 5
   },
   time: {
     textAlign: "right"
