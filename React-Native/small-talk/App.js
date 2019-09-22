@@ -7,6 +7,9 @@ import People from "./screens/people/index";
 import Contact from "./screens/contact/index";
 import Add from "./screens/add/index";
 
+import Auth from "./screens/auth/index";
+import Check from "./screens/auth/check";
+
 const App = createStackNavigator({
   Home: {
     screen: Home,
@@ -33,17 +36,30 @@ const App = createStackNavigator({
     }
   }
 });
-//const AuthStack = createStackNavigator({ SignIn: SignIn, SignIn2: SignIn2, SignUp: SignUp })
+
+const Auth = createStackNavigator({ 
+  Check: {
+    screen: Check,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Login: {
+    screen: Auth,
+    navigationOptions: {
+      header: null
+    }
+  }
+ })
 
 export default createAppContainer(
   createSwitchNavigator(
     {
-      //AuthLoading: AuthLoadingScreen,
-      App
-      //Auth: AuthStack,
+      Auth,
+      App,
     },
     {
-      initialRouteName: "App"
+      initialRouteName: "Auth"
     }
   )
 );
