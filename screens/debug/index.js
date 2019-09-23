@@ -12,6 +12,7 @@ export default function Debug({ navigation }) {
 
       <Button title={"Check"} onPress={() => navigation.navigate("Check")} />
       <Button title={"Login"} onPress={() => navigation.navigate("Login")} />
+      <Button title={"Fake Login"} onPress={() => navigation.navigate("Fake_Login")} />
 
     </View>
   );

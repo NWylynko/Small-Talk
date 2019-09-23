@@ -12,8 +12,6 @@ import * as SecureStore from 'expo-secure-store';
 
 export default function check({ navigation }) {
 
-  console.log("Check page")
-
   firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
       navigation.navigate('App');
@@ -40,8 +38,7 @@ export default function check({ navigation }) {
   // Render any loading content that you like here
     return (
       <View>
-        <ActivityIndicator />
-        <StatusBar barStyle="default" />
+        <ActivityIndicator styles={{ flex: 1, alignSelf:'center' }} />
       </View>
     );
 }
