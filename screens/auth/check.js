@@ -12,6 +12,8 @@ import * as SecureStore from 'expo-secure-store';
 
 export default function check({ navigation }) {
 
+  console.log("Check page")
+
   firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
       navigation.navigate('App');
@@ -23,11 +25,7 @@ export default function check({ navigation }) {
   async function bootstrapAsync() {
     const credential = await SecureStore.getItemAsync('credential')
 
-    if(__DEV__) {
-      navigation.navigate('Debug');
-    }
-
-    else if (credential) {
+    if (credential) {
       firebase.auth().signInWithCredential(credential).catch((error) => {
         navigation.navigate('Login');
       })

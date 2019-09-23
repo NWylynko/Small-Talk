@@ -10,7 +10,8 @@ import Add from "./screens/add/index";
 import Login from "./screens/auth/index";
 import Check from "./screens/auth/check";
 
-import Debug from "./screens/debug/index";
+import Select_Page from "./screens/debug/index";
+import Switch from "./screens/debug/switch";
 
 const App = createStackNavigator({
   Home: {
@@ -54,6 +55,11 @@ const Auth = createStackNavigator({
   }
  })
 
+const Debug = createStackNavigator({
+  Switch,
+  Select_Page
+})
+
 export default createAppContainer(
   createSwitchNavigator(
     {
@@ -62,7 +68,7 @@ export default createAppContainer(
       Debug,
     },
     {
-      initialRouteName: "Auth"
+      initialRouteName: "Debug"
     }
   )
 );

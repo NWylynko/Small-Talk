@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import { StyleSheet, button, View } from "react-native";
+import { StyleSheet, Button, View } from "react-native";
 import Constants from "expo-constants";
 
 export default function Debug({ navigation }) {
   return (
     <View style={styles.container}>
-      <button title={"Home"} onPress={() => navigation.navigate("Home")} />
-      <button title={"People"} onPress={() => navigation.navigate("People")} />
-      <button title={"Contact"} onPress={() => navigation.navigate("Contact")} />
-      <button title={"Add"} onPress={() => navigation.navigate("Add")} />
+      <Button title={"Home"} onPress={() => navigation.navigate("Home")} />
+      <Button title={"People"} onPress={() => navigation.navigate("People")} />
+      <Button title={"Contact"} onPress={() => navigation.navigate("Contact")} />
+      <Button title={"Add"} onPress={() => navigation.navigate("Add")} />
 
-      <button title={"Check"} onPress={() => navigation.navigate("Check")} />
-      <button title={"Login"} onPress={() => navigation.navigate("Login")} />
+      <Button title={"Check"} onPress={() => navigation.navigate("Check")} />
+      <Button title={"Login"} onPress={() => navigation.navigate("Login")} />
 
     </View>
   );
