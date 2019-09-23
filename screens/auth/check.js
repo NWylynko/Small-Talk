@@ -24,7 +24,7 @@ export default function check({ navigation }) {
     const credential = await SecureStore.getItemAsync('credential')
 
     if(__DEV__) {
-      navigation.navigate('App');
+      navigation.navigate('Debug');
     }
 
     else if (credential) {

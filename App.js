@@ -10,6 +10,8 @@ import Add from "./screens/add/index";
 import Login from "./screens/auth/index";
 import Check from "./screens/auth/check";
 
+import Debug from "./screens/debug/index";
+
 const App = createStackNavigator({
   Home: {
     screen: Home,
@@ -57,6 +59,7 @@ export default createAppContainer(
     {
       Auth,
       App,
+      Debug,
     },
     {
       initialRouteName: "Auth"
