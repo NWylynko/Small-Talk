@@ -10,16 +10,14 @@ import * as AppAuth from 'expo-app-auth';
 // This value should contain your REVERSE_CLIENT_ID
 const { URLSchemes } = AppAuth;
 
-
-
 export default function Login({ navigation }) {
 
-  // Listen for authentication state to change.
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user != null) {
-      navigation.navigate('App');
-    }
-  });
+    // Listen for authentication state to change.
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user != null) {
+        navigation.navigate('App');
+      }
+    });
 
   async function onPress() {
 
@@ -66,6 +64,8 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    padding: 10
+    padding: 10,
+    borderColor: "#333333",
+    borderWidth: 4
   }
 });
