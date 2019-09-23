@@ -4,16 +4,11 @@ import Constants from "expo-constants";
 
 import firebase from "../../firebase/index";
 
-import { AppAuth } from 'expo-app-auth';
+import * as GoogleSignIn from 'expo-google-sign-in';
+import * as AppAuth from 'expo-app-auth';
 
 // This value should contain your REVERSE_CLIENT_ID
 const { URLSchemes } = AppAuth;
-
-try {
-    await GoogleSignIn.initAsync({ clientId: URLSchemes });
-  } catch ({ message }) {
-    console.error('GoogleSignIn.initAsync(): ' + message);
-  }
 
 // Listen for authentication state to change.
 firebase.auth().onAuthStateChanged((user) => {
@@ -25,6 +20,13 @@ firebase.auth().onAuthStateChanged((user) => {
 
 export default function Login() {
   async function onPress() {
+
+    try {
+      await GoogleSignIn.initAsync({ clientId: URLSchemes });
+    } catch ({ message }) {
+      console.error('GoogleSignIn.initAsync(): ' + message);
+    }
+
     try {
         await GoogleSignIn.askForPlayServicesAsync();
         const { type, user } = await GoogleSignIn.signInAsync();

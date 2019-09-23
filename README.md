@@ -1,10 +1,10 @@
 # Small Talk
 
-Messaging app built in react native client and nodejs backend
+Messaging app built in react native client and firebase backend
 
 ## Client / Frontend
 
-to build: 
+to test: 
 
 - install nodejs, npm
   - https://nodejs.org

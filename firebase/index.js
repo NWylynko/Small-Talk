@@ -1,5 +1,7 @@
 import * as firebase from 'firebase';
 
-import firebaseConfig from './auth.json';
+import firebaseConfig from '../../firebase/auth.json';
 
-export default firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+
+export default firebase
