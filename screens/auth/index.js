@@ -18,7 +18,7 @@ firebase.auth().onAuthStateChanged((user) => {
     }
 });
 
-export default function Login() {
+export default function Login({ navigation }) {
   async function onPress() {
 
     try {
@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    padding: 10
+    padding: 10,
+    borderColor: "#333333",
+    borderWidth: 4
   }
 });

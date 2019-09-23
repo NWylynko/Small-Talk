@@ -7,6 +7,8 @@ import {
   View,
 } from 'react-native';
 
+import firebase from "../../firebase/index";
+
 export default function check({ navigation }) {
   bootstrapAsync();
 
