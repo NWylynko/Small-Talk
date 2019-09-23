@@ -1,22 +1,42 @@
 import React from 'react';
 import {
   ActivityIndicator,
-  AsyncStorage,
   StatusBar,
   StyleSheet,
   View,
 } from 'react-native';
 
+import firebase from "../../firebase/index";
+
+import * as SecureStore from 'expo-secure-store';
+
 export default function check({ navigation }) {
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user != null) {
+      navigation.navigate('App');
+    }
+  });
+
   bootstrapAsync();
 
-  // Fetch the token from storage then navigate to our appropriate place
   async function bootstrapAsync() {
-    const userToken = await AsyncStorage.getItem('userToken');
+    const credential = await SecureStore.getItemAsync('credential')
 
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-    navigation.navigate(userToken ? 'App' : 'Login');
+    if(__DEV__) {
+      navigation.navigate('App');
+    }
+
+    else if (credential) {
+      firebase.auth().signInWithCredential(credential).catch((error) => {
+        navigation.navigate('Login');
+      })
+    }
+
+    else {
+      navigation.navigate('Login');
+    }
+    
   };
 
   // Render any loading content that you like here

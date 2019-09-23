@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     paddingHorizontal: 10,
-    marginTop: Constants.statusBarHeight,
+    marginTop: Constants.statusBarHeight + 2,
     width: "100%"
   },
   button: {

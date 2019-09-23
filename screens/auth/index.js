@@ -10,15 +10,17 @@ import * as AppAuth from 'expo-app-auth';
 // This value should contain your REVERSE_CLIENT_ID
 const { URLSchemes } = AppAuth;
 
-// Listen for authentication state to change.
-firebase.auth().onAuthStateChanged((user) => {
-    if (user != null) {
-      console.log("We are authenticated now!");
-      console.log(user)
-    }
-});
 
-export default function Login() {
+
+export default function Login({ navigation }) {
+
+  // Listen for authentication state to change.
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user != null) {
+      navigation.navigate('App');
+    }
+  });
+
   async function onPress() {
 
     try {
@@ -33,7 +35,8 @@ export default function Login() {
         if (type === 'success') {
             // Build Firebase credential with the Google access token.
             const credential = firebase.auth.GoogleAuthProvider.credential(token);
-    
+
+            SecureStore.setItemAsync('credential', credential)
             // Sign in with credential from the Google user.
             firebase.auth().signInWithCredential(credential).catch((error) => {
                 // Handle Errors here.
