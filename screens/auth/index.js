@@ -34,7 +34,6 @@ export default function Login({ navigation }) {
             // Build Firebase credential with the Google access token.
             const credential = firebase.auth.GoogleAuthProvider.credential(token);
 
-            SecureStore.setItemAsync('credential', credential)
             // Sign in with credential from the Google user.
             firebase.auth().signInWithCredential(credential).catch((error) => {
                 // Handle Errors here.

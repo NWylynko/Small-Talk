@@ -4,6 +4,10 @@ import { SafeAreaView, View, FlatList, StyleSheet, Text } from "react-native";
 import config from "../config.json";
 import DATA from "./Messages-test-data.json";
 
+//import firebase from "../../firebase/index";
+
+//const DB = firebase.database();
+
 import time from "../../tools/time";
 
 function Item({ msg, user, timestamp }) {
@@ -16,6 +20,14 @@ function Item({ msg, user, timestamp }) {
 }
 
 export default function Messages() {
+
+  //DATA = {}
+
+  //var messages = DB.ref('messages/' + firebase.auth().currentUser.uid);
+  //messages.on('value', function(snapshot) {
+  //  console.log(snapshot)
+  //});
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList

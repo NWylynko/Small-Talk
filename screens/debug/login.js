@@ -1,23 +1,37 @@
 import React from "react";
-import { TextInput } from "react-native";
+import { TextInput, View } from "react-native";
 
-export default function Input() {
+import firebase from "../../firebase/index";
+
+export default function Input({ navigation }) {
   const [value_username, onchange_username] = React.useState("");
   const [value_password, onchange_password] = React.useState("");
 
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user != null) {
+      navigation.navigate('App');
+    }
+  });
+
   function onSubmit() {
-    console.log(value_username);
-    console.log(value_password)
+
+    firebase.auth().signInWithEmailAndPassword(value_username, value_password).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      alert(errorMessage)
+    })
   }
 
   return (
     <View>
       <TextInput
-        onChangeText={onchange_username => onChangeText(onchange_username)}
+        style={{ borderWidth: 2 }}
+        onChangeText={text => onchange_username(text)}
         value={value_username}
       />
       <TextInput
-        onChangeText={onchange_password => onChangeText(onchange_password)}
+        style={{ borderWidth: 2 }}
+        onChangeText={text => onchange_password(text)}
         value={value_password}
         onSubmitEditing={onSubmit}
       />

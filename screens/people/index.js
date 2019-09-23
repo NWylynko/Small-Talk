@@ -45,7 +45,7 @@ export default function People({ navigation }) {
   }
 
   function onpress_config() {
-    console.log("config");
+    navigation.navigate("Config");
   }
 
   return (
