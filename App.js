@@ -74,7 +74,3 @@ export default createAppContainer(
     }
   )
 );
-
-console.ignoredYellowBox = [
-  'Setting a timer'
-]

@@ -1,39 +1,38 @@
 import React from "react";
-import { SafeAreaView, View, FlatList, StyleSheet, Text } from "react-native";
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Button } from "react-native";
 
 import config from "../config.json";
-import DATA from "./Messages-test-data.json";
+//import DATA from "./Messages-test-data.json";
 
-//import firebase from "../../firebase/index";
+import firebase from "../../firebase/index";
+import 'firebase/firestore'
 
 //const DB = firebase.database();
 
 import time from "../../tools/time";
 
-function Item({ msg, user, timestamp }) {
+function Item({ item }) {
+
+  //console.log(item)
+
   return (
-    <View style={UserStyle(user)}>
-      <Text style={styles.msg}>{msg}</Text>
-      <Text style={styles.time}>{time(timestamp)}</Text>
+    <View style={UserStyle(item.from)}>
+      <Text style={styles.msg}>{item.text}</Text>
+      <Text style={styles.time}>{time(item.timestamp)}</Text>
     </View>
   );
 }
 
-export default function Messages() {
-
-  //DATA = {}
-
-  //var messages = DB.ref('messages/' + firebase.auth().currentUser.uid);
-  //messages.on('value', function(snapshot) {
-  //  console.log(snapshot)
-  //});
+export default function Messages({ DATA }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      
       <FlatList
         data={DATA}
+        extraData={DATA}
         renderItem={({ item }) => (
-          <Item msg={item.msg} user={item.user} timestamp={item.timestamp} />
+          <Item item={item} />
         )}
         keyExtractor={item => item.id}
       />
@@ -55,8 +54,8 @@ const styles = StyleSheet.create({
   }
 });
 
-function UserStyle(user) {
-  if (user) {
+function UserStyle(from) {
+  if (!(from)) {
     return {
       backgroundColor: config.style.colors.messages.message.me,
       padding: 10,

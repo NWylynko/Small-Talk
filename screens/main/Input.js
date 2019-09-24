@@ -5,8 +5,6 @@ import config from "../config.json";
 
 import firebase from "../../firebase/index";
 
-const DB = firebase.database();
-
 export default function Input() {
   const [value, onChangeText] = React.useState("");
   return (
@@ -29,21 +27,21 @@ function onSubmitEditing(data) {
 
     // A post entry.
     var postData = {
-      from: "users/" + firebase.auth().currentUser.uid,
-      msg: data.nativeEvent.text,
+      from: firebase.auth().currentUser.uid,
+      text: data.nativeEvent.text,
       timestamp: data.timeStamp,
     };
   
     // Get a key for a new Post.
-    var newPostKey = firebase.database().ref().child('messages').push().key;
+    //var newPostKey = firebase.database().ref().child('messages').push().key;
     
     //var newPostKey = "iRWPfjFcVrpN012CjWAE"
 
     // Write the new post's data simultaneously in the posts list and the user's post list.
-    var updates = {};
-    updates['/messages/' + newPostKey] = postData;
+    //var updates = {};
+    //updates['/messages/' + newPostKey] = postData;
   
-    return firebase.database().ref().update(updates);
+    //return firebase.database().ref().update(updates);
 }
 
 const styles = StyleSheet.create({

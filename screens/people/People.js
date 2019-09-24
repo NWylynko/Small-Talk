@@ -4,14 +4,14 @@ import Constants from "expo-constants";
 
 import config from "../config.json";
 
-export default function People_Select({ user, navigation, to }) {
+export default function People_Select({ userID, navigation, to }) {
   function onPress() {
     navigation.navigate(to);
   }
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text>{user}</Text>
+        <Text>{userID}</Text>
       </TouchableOpacity>
     </View>
   );
