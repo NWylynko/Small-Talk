@@ -1,17 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import Constants from "expo-constants";
 
 import config from "../config.json";
 
-export default function People_Select({ userID, navigation, to }) {
+export default function People_Select({ current, navigation, to, FRIEND }) {
+
   function onPress() {
-    navigation.navigate(to);
+    navigation.navigate(to, { FRIEND });
   }
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text>{userID}</Text>
+        <Text>{FRIEND.nickname}</Text>
       </TouchableOpacity>
     </View>
   );

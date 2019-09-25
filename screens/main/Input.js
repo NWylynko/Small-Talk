@@ -4,8 +4,11 @@ import { TextInput, StyleSheet, KeyboardAvoidingView } from "react-native";
 import config from "../config.json";
 
 import firebase from "../../firebase/index";
+import 'firebase/firestore';
 
-export default function Input() {
+const DB = firebase.firestore();
+
+export default function Input({ current }) {
   const [value, onChangeText] = React.useState("");
   return (
     <KeyboardAvoidingView keyboardVerticalOffset = {5} style={styles.keyboard} behavior="padding" enabled>
@@ -13,7 +16,7 @@ export default function Input() {
         style={styles.input}
         onChangeText={text => onChangeText(text)}
         value={value}
-        onSubmitEditing={data => onSubmitEditing(data)}
+        onSubmitEditing={data => onSubmitEditing(data, current, onChangeText)}
         placeholder="Chat..."
         padding={10}
       />
@@ -21,7 +24,10 @@ export default function Input() {
   );
 }
 
-function onSubmitEditing(data) {
+function onSubmitEditing(data, current, onChangeText) {
+
+  onChangeText("")
+
   console.log(data.timeStamp);
   console.log(data.nativeEvent.text);
 
@@ -32,16 +38,11 @@ function onSubmitEditing(data) {
       timestamp: data.timeStamp,
     };
   
-    // Get a key for a new Post.
-    //var newPostKey = firebase.database().ref().child('messages').push().key;
-    
-    //var newPostKey = "iRWPfjFcVrpN012CjWAE"
-
-    // Write the new post's data simultaneously in the posts list and the user's post list.
-    //var updates = {};
-    //updates['/messages/' + newPostKey] = postData;
-  
-    //return firebase.database().ref().update(updates);
+    DB.collection("messages").doc(current.chatID)
+      .collection("chat")
+      .add(postData).then(function() {
+        console.log("Document successfully written!");
+    });
 }
 
 const styles = StyleSheet.create({

@@ -2,18 +2,10 @@ import React from "react";
 import { SafeAreaView, View, FlatList, StyleSheet, Text, Button } from "react-native";
 
 import config from "../config.json";
-//import DATA from "./Messages-test-data.json";
-
-import firebase from "../../firebase/index";
-import 'firebase/firestore'
-
-//const DB = firebase.database();
 
 import time from "../../tools/time";
 
 function Item({ item }) {
-
-  //console.log(item)
 
   return (
     <View style={UserStyle(item.from)}>
@@ -23,7 +15,7 @@ function Item({ item }) {
   );
 }
 
-export default function Messages({ DATA }) {
+export default function Messages({ current, DATA }) {
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,6 +27,7 @@ export default function Messages({ DATA }) {
           <Item item={item} />
         )}
         keyExtractor={item => item.id}
+        inverted
       />
     </SafeAreaView>
   );
@@ -55,7 +48,7 @@ const styles = StyleSheet.create({
 });
 
 function UserStyle(from) {
-  if (!(from)) {
+  if (from) {
     return {
       backgroundColor: config.style.colors.messages.message.me,
       padding: 10,

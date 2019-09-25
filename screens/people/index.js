@@ -55,6 +55,7 @@ export default function People({ navigation }) {
         user={"Person"}
         to={"Home"}
         navigation={navigation}
+        FRIEND={navigation.state.params.FRIEND}
       />
 
       <FlatList
