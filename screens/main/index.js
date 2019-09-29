@@ -10,58 +10,66 @@ import Input from "./Input";
 import People_Select from "../people/People";
 
 export default function App({ navigation }) {
-  current = {
-    userID: firebase.auth().currentUser.uid,
-    chatID: "OICKPW4v48g7asNTCD3u",
-  };
-
   const [DATA, set_DATA] = useState([]);
-  const [FRIEND, set_FRIEND] = useState({});
+  const [ME, set_ME] = useState({});
+  const [FRIEND, set_FRIEND] = useState({
+    nickname: "..."
+  });
+
+  let userID = firebase.auth().currentUser.uid;
+  DBs = [];
 
   useEffect(() => {
-
     DB.collection("users")
-      .doc(current.userID)
-      .collection("friends")
-      .doc("TIeAxlxDwiUi7QK8bBh4teC4OmJ2")
+      .doc(userID)
       .onSnapshot(snapshot => {
-        set_FRIEND(snapshot.data())
-        console.log(snapshot.data())
-      })
 
-    DB.collection("messages")
-      .doc(current.chatID)
-      .collection("chat")
-      .orderBy("timestamp", "desc")
-      .onSnapshot(snapshot => {
-        n = DATA.length;
-        new_DATA = [];
+        new_me = snapshot.data()
+        new_me.userID = userID
 
-        snapshot.forEach(doc => {
-          data = doc.data();
+        set_ME(new_me);
 
-          data.id = n;
-          n++;
+        DB.collection("users")
+          .doc(userID)
+          .collection("friends")
+          .doc(snapshot.data().current_friend)
+          .onSnapshot(snapshot => {
+            set_FRIEND(snapshot.data());
 
-          if (data.from === current.userID) {
-            data.from = true;
-          } else {
-            data.from = false;
-          }
+            DB.collection("messages")
+              .doc(snapshot.data().chatID)
+              .collection("chat")
+              .orderBy("timestamp", "desc")
+              .onSnapshot(snapshot => {
+                var n = DATA.length;
+                var new_DATA = [];
 
-          new_DATA.push(data);
-        });
+                snapshot.forEach(doc => {
+                  let data = doc.data();
 
-        set_DATA(DATA.concat(new_DATA));
+                  data.id = n;
+                  n++;
 
+                  if (data.from === userID) {
+                    data.from = true;
+                  } else {
+                    data.from = false;
+                  }
+
+                  new_DATA.push(data);
+                });
+
+                set_DATA(DATA.concat(new_DATA));
+              });
+          });
       });
   }, [false]);
 
   return (
     <View style={styles.container}>
-      <People_Select current={current} to={"People"} navigation={navigation} FRIEND={FRIEND} />
-      <Messages current={current} DATA={DATA} />
-      <Input current={current} />
+      <People_Select to={"People"} navigation={navigation} FRIEND={FRIEND} ME={ME} />
+      <Messages DATA={DATA} />
+      <Input FRIEND={FRIEND} />
     </View>
   );
 }

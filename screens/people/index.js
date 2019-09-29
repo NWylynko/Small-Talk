@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -7,39 +7,71 @@ import {
   Text,
   Image
 } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import People_Select from "./People";
 
 import config from "../config.json";
 import time from "../../tools/time";
 
-import DATA from "./index-test-data.json";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import firebase from "../../firebase/index";
+import "firebase/firestore";
+const DB = firebase.firestore();
 
-function Item({ user, last, navigation }) {
+function Item({ user, navigation }) {
   function onPress() {
     navigation.navigate("Home", { user });
   }
 
   function onLongPress() {
-    user_id = user.id;
-    navigation.navigate("Contact", { user_id });
+    friendID = user.id;
+    navigation.navigate("Contact", { friendID });
   }
 
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      onLongPress={onLongPress}
-      style={styles.user}
-    >
-      <Text style={styles.name}>{user.nickname}</Text>
-      <Text style={styles.last}>{last.msg}</Text>
-      <Text style={styles.time}>{time(last.timestamp)}</Text>
-    </TouchableOpacity>
-  );
+   return (
+     <TouchableOpacity
+       onPress={onPress}
+       onLongPress={onLongPress}
+       style={styles.user}
+     >
+       <Text style={styles.name}>{user.nickname}</Text>
+       
+     </TouchableOpacity>
+   );
+    //
+   //<Text style={styles.last}>{last.msg}</Text>
+   //<Text style={styles.time}>{time(last.timestamp)}</Text>
 }
 
 export default function People({ navigation }) {
+  const [FRIEND_DATA, set_FRIEND_DATA] = useState([]);
+
+  const ME = navigation.state.params.ME;
+  const FRIEND = navigation.state.params.FRIEND;
+
+  useEffect(() => {
+    DB.collection("users")
+      .doc(ME.userID)
+      .collection("friends")
+      .onSnapshot(snapshot => {
+        var n = FRIEND_DATA.length;
+        var new_DATA = [];
+
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          console.log(data)
+          data.id = n;
+          n++;
+
+          new_DATA.push(data);
+        });
+
+        console.log(FRIEND_DATA.concat(new_DATA));
+
+        set_FRIEND_DATA(FRIEND_DATA.concat(new_DATA));
+      });
+  }, [false]);
+
   function onpress_add() {
     navigation.navigate("Add");
   }
@@ -60,9 +92,10 @@ export default function People({ navigation }) {
 
       <FlatList
         style={styles.list}
-        data={DATA}
+        data={FRIEND_DATA}
+        extraData={FRIEND_DATA}
         renderItem={({ item }) => (
-          <Item user={item.user} last={item.last} navigation={navigation} />
+          <Item user={item} navigation={navigation} />
         )}
         keyExtractor={item => item.id}
       />

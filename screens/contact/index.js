@@ -20,7 +20,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 export default function Contact({ navigation }) {
   const [nickname, onChangenickname] = React.useState(DATA.nickname);
 
-  const user_id = navigation.state.params.user_id;
+  const user_id = navigation.state.params.friendID;
 
   console.log(user_id);
 

@@ -15,7 +15,7 @@ function Item({ item }) {
   );
 }
 
-export default function Messages({ current, DATA }) {
+export default function Messages({ DATA }) {
 
   return (
     <SafeAreaView style={styles.container}>

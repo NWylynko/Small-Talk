@@ -4,19 +4,24 @@ import { TextInput, StyleSheet, KeyboardAvoidingView } from "react-native";
 import config from "../config.json";
 
 import firebase from "../../firebase/index";
-import 'firebase/firestore';
+import "firebase/firestore";
 
 const DB = firebase.firestore();
 
-export default function Input({ current }) {
+export default function Input({ FRIEND }) {
   const [value, onChangeText] = React.useState("");
   return (
-    <KeyboardAvoidingView keyboardVerticalOffset = {5} style={styles.keyboard} behavior="padding" enabled>
+    <KeyboardAvoidingView
+      keyboardVerticalOffset={5}
+      style={styles.keyboard}
+      behavior="padding"
+      enabled
+    >
       <TextInput
         style={styles.input}
         onChangeText={text => onChangeText(text)}
         value={value}
-        onSubmitEditing={data => onSubmitEditing(data, current, onChangeText)}
+        onSubmitEditing={data => onSubmitEditing(data, FRIEND, onChangeText)}
         placeholder="Chat..."
         padding={10}
       />
@@ -24,24 +29,22 @@ export default function Input({ current }) {
   );
 }
 
-function onSubmitEditing(data, current, onChangeText) {
+function onSubmitEditing(data, FRIEND, onChangeText) {
+  onChangeText("");
 
-  onChangeText("")
+  // A post entry.
+  var postData = {
+    from: firebase.auth().currentUser.uid,
+    text: data.nativeEvent.text,
+    timestamp: data.timeStamp
+  };
 
-  console.log(data.timeStamp);
-  console.log(data.nativeEvent.text);
-
-    // A post entry.
-    var postData = {
-      from: firebase.auth().currentUser.uid,
-      text: data.nativeEvent.text,
-      timestamp: data.timeStamp,
-    };
-  
-    DB.collection("messages").doc(current.chatID)
-      .collection("chat")
-      .add(postData).then(function() {
-        console.log("Document successfully written!");
+  DB.collection("messages")
+    .doc(FRIEND.chatID)
+    .collection("chat")
+    .add(postData)
+    .then(function() {
+      console.log("Document successfully written!");
     });
 }
 
@@ -50,12 +53,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     borderColor: config.style.colors.input.border,
-    borderWidth: 3,
-    
+    borderWidth: 3
   },
   keyboard: {
     width: "100%",
     padding: 5,
-    marginBottom: 5,
+    marginBottom: 5
   }
 });

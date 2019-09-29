@@ -4,10 +4,10 @@ import Constants from "expo-constants";
 
 import config from "../config.json";
 
-export default function People_Select({ current, navigation, to, FRIEND }) {
+export default function People_Select({ navigation, to, FRIEND, ME }) {
 
   function onPress() {
-    navigation.navigate(to, { FRIEND });
+    navigation.navigate(to, { FRIEND, ME });
   }
   return (
     <View style={styles.container}>
