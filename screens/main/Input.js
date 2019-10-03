@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { TextInput, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { useGlobal } from 'reactn';
 
 import config from "../config.json";
 
@@ -8,7 +9,8 @@ import "firebase/firestore";
 
 const DB = firebase.firestore();
 
-export default function Input({ FRIEND }) {
+export default function Input() {
+  const [FRIEND, set_FRIEND] = useGlobal('global_friend');
   const [value, onChangeText] = React.useState("");
   return (
     <KeyboardAvoidingView

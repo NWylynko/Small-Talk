@@ -1,10 +1,14 @@
 import React from "react";
+import { useGlobal } from 'reactn';
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import Constants from "expo-constants";
 
 import config from "../config.json";
 
-export default function People_Select({ navigation, to, FRIEND, ME }) {
+export default function People_Select({ navigation, to}) {
+
+  const [ME, set_ME] = useGlobal('global_me');
+  const [FRIEND, set_FRIEND] = useGlobal('global_friend');
 
   function onPress() {
     navigation.navigate(to, { FRIEND, ME });

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
+import { useGlobal } from 'reactn';
 
 import firebase from "../../firebase/index";
 import "firebase/firestore";
@@ -10,11 +11,9 @@ import Input from "./Input";
 import People_Select from "../people/People";
 
 export default function App({ navigation }) {
-  const [DATA, set_DATA] = useState([]);
-  const [ME, set_ME] = useState({});
-  const [FRIEND, set_FRIEND] = useState({
-    nickname: "..."
-  });
+  const [DATA, set_DATA] = useGlobal('global_data');
+  const [ME, set_ME] = useGlobal('global_me');
+  const [FRIEND, set_FRIEND] = useGlobal('global_friend');
 
   let userID = firebase.auth().currentUser.uid;
   DBs = [];
@@ -67,9 +66,9 @@ export default function App({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <People_Select to={"People"} navigation={navigation} FRIEND={FRIEND} ME={ME} />
-      <Messages DATA={DATA} />
-      <Input FRIEND={FRIEND} />
+      <People_Select to={"People"} navigation={navigation} />
+      <Messages/>
+      <Input/>
     </View>
   );
 }

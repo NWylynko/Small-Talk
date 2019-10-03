@@ -1,5 +1,6 @@
 import React from "react";
 import { SafeAreaView, View, FlatList, StyleSheet, Text, Button } from "react-native";
+import { useGlobal } from 'reactn';
 
 import config from "../config.json";
 
@@ -15,7 +16,9 @@ function Item({ item }) {
   );
 }
 
-export default function Messages({ DATA }) {
+export default function Messages() {
+
+  const [DATA, set_DATA] = useGlobal('global_data');
 
   return (
     <SafeAreaView style={styles.container}>
