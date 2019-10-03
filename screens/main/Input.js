@@ -10,7 +10,7 @@ import "firebase/firestore";
 const DB = firebase.firestore();
 
 export default function Input() {
-  const [FRIEND, set_FRIEND] = useGlobal('global_friend');
+  const [FRIEND, set_FRIEND] = useGlobal('friend');
   const [value, onChangeText] = React.useState("");
   return (
     <KeyboardAvoidingView

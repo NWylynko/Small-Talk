@@ -11,9 +11,9 @@ import Input from "./Input";
 import People_Select from "../people/People";
 
 export default function App({ navigation }) {
-  const [DATA, set_DATA] = useGlobal('global_data');
-  const [ME, set_ME] = useGlobal('global_me');
-  const [FRIEND, set_FRIEND] = useGlobal('global_friend');
+  const [DATA, set_DATA] = useGlobal('data');
+  const [ME, set_ME] = useGlobal('me');
+  const [FRIEND, set_FRIEND] = useGlobal('friend');
 
   let userID = firebase.auth().currentUser.uid;
   DBs = [];
@@ -46,7 +46,7 @@ export default function App({ navigation }) {
                 snapshot.forEach(doc => {
                   let data = doc.data();
 
-                  data.id = n;
+                  data.id = n.toString();
                   n++;
 
                   if (data.from === userID) {

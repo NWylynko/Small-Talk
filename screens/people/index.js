@@ -8,6 +8,7 @@ import {
   Image
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useGlobal } from "reactn";
 
 import People_Select from "./People";
 
@@ -44,10 +45,10 @@ function Item({ user, navigation }) {
 }
 
 export default function People({ navigation }) {
-  const [FRIEND_DATA, set_FRIEND_DATA] = useState([]);
 
-  const ME = navigation.state.params.ME;
-  const FRIEND = navigation.state.params.FRIEND;
+  const [FRIEND_DATA, set_FRIEND_DATA] = useGlobal('friend_data');
+  const [ME, set_ME] = useGlobal('me');
+  const [FRIEND, set_FRIEND] = useGlobal('friend');
 
   useEffect(() => {
     DB.collection("users")

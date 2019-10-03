@@ -7,8 +7,8 @@ import config from "../config.json";
 
 export default function People_Select({ navigation, to}) {
 
-  const [ME, set_ME] = useGlobal('global_me');
-  const [FRIEND, set_FRIEND] = useGlobal('global_friend');
+  const [ME, set_ME] = useGlobal('me');
+  const [FRIEND, set_FRIEND] = useGlobal('friend');
 
   function onPress() {
     navigation.navigate(to, { FRIEND, ME });

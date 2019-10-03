@@ -18,7 +18,7 @@ function Item({ item }) {
 
 export default function Messages() {
 
-  const [DATA, set_DATA] = useGlobal('global_data');
+  const [DATA, set_DATA] = useGlobal('data');
 
   return (
     <SafeAreaView style={styles.container}>
