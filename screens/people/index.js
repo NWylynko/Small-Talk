@@ -50,29 +50,6 @@ export default function People({ navigation }) {
   const [ME, set_ME] = useGlobal('me');
   const [FRIEND, set_FRIEND] = useGlobal('friend');
 
-  useEffect(() => {
-    DB.collection("users")
-      .doc(ME.userID)
-      .collection("friends")
-      .onSnapshot(snapshot => {
-        var n = FRIEND_DATA.length;
-        var new_DATA = [];
-
-        snapshot.forEach(doc => {
-          let data = doc.data();
-          console.log(data)
-          data.id = n;
-          n++;
-
-          new_DATA.push(data);
-        });
-
-        console.log(FRIEND_DATA.concat(new_DATA));
-
-        set_FRIEND_DATA(FRIEND_DATA.concat(new_DATA));
-      });
-  }, [false]);
-
   function onpress_add() {
     navigation.navigate("Add");
   }

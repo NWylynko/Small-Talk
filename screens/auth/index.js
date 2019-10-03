@@ -15,7 +15,7 @@ export default function Login({ navigation }) {
     // Listen for authentication state to change.
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
-        navigation.navigate('App');
+        navigation.navigate('Loading');
       }
     });
 

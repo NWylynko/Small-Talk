@@ -9,8 +9,8 @@ import Add from "./screens/add/index";
 import Config from "./screens/config/index"
 
 import Login from "./screens/auth/index";
+import Loading from "./screens/auth/loading";
 
-import Select_Page from "./screens/debug/index";
 import Switch from "./screens/debug/switch";
 import Fake_Login from "./screens/debug/login";
 
@@ -53,12 +53,17 @@ const Auth = createStackNavigator({
     navigationOptions: {
       header: null
     }
+  },
+  Loading: {
+    screen: Loading,
+    navigationOptions: {
+      header: null
+    }
   }
  })
 
-const Loading = createStackNavigator({
+const Dev = createStackNavigator({
   Switch,
-  Select_Page,
   Fake_Login
 })
 
@@ -67,10 +72,10 @@ export default createAppContainer(
     {
       Auth,
       App,
-      Loading,
+      Dev,
     },
     {
-      initialRouteName: "Loading"
+      initialRouteName: "Dev"
     }
   )
 );

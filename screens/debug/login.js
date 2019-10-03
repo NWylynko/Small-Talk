@@ -9,7 +9,7 @@ export default function Input({ navigation }) {
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user != null) {
-      navigation.navigate('App');
+      navigation.navigate('Loading');
     }
   });
 

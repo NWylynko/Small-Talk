@@ -17,7 +17,6 @@ export default function Switch({ navigation }) {
   set_FRIEND_DATA([])
 
   if (__DEV__) {
-    //navigation.navigate('Select_Page');
     navigation.navigate('Fake_Login')
   } else {
     navigation.navigate('Auth');
