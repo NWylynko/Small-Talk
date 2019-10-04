@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { TextInput, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { useGlobal } from 'reactn';
+import Constants from "expo-constants";
 
 import config from "../config.json";
 
@@ -62,6 +63,6 @@ const styles = StyleSheet.create({
   keyboard: {
     width: "100%",
     padding: 5,
-    marginBottom: 5
+    marginBottom: Constants.statusBarHeight,
   }
 });

@@ -63,13 +63,10 @@ export default function People({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <People_Select
-        style={styles.button}
-        user={"Person"}
         to={"Home"}
         navigation={navigation}
-        FRIEND={navigation.state.params.FRIEND}
       />
 
       <FlatList
@@ -90,7 +87,7 @@ export default function People({ navigation }) {
           <Text style={styles.icon}> Add ♔</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -102,6 +99,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     backgroundColor: "#fff"
+
   },
   list: {
     marginTop: 5
@@ -117,10 +115,6 @@ const styles = StyleSheet.create({
   },
   time: {
     textAlign: "right"
-  },
-  button: {
-    position: "absolute",
-    top: 0
   },
   icons: {
     flexDirection: "row",
