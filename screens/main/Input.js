@@ -20,6 +20,7 @@ export default function Input() {
       enabled
     >
       <TextInput
+        blurOnSubmit={false}
         style={styles.input}
         onChangeText={text => onChangeText(text)}
         value={value}
@@ -46,7 +47,7 @@ function onSubmitEditing(data, FRIEND, onChangeText) {
     .collection("chat")
     .add(postData)
     .then(function() {
-      console.log("Document successfully written!");
+      // success
     });
 }
 

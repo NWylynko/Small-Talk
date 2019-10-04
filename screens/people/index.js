@@ -53,9 +53,6 @@ export default function People({ navigation }) {
 
   const [FRIEND_DATA, set_FRIEND_DATA] = useGlobal('friend_data');
   const [ME, set_ME] = useGlobal('me');
-  const [FRIEND, set_FRIEND] = useGlobal('friend');
-
-  console.log(ME)
 
   function onpress_add() {
     navigation.navigate("Add");

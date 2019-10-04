@@ -22,8 +22,6 @@ export default function Contact({ navigation }) {
 
   const user_id = navigation.state.params.friendID;
 
-  console.log(user_id);
-
   function onPress_Apply() {
     navigation.goBack();
   }
