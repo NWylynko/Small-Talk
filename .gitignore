@@ -9,3 +9,10 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+.gitsecret/keys/random_seed
+!*.secret
+
+app.json
+google-services.json
+GoogleService-Info.plist
+firebase/auth.json
