@@ -19,9 +19,14 @@ import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
 
-function Item({ user, navigation }) {
+function Item({ user, ME, navigation }) {
   function onPress() {
-    navigation.navigate("Home", { user });
+
+    DB.collection("users").doc(ME.userID).update({
+      current_friend: user.uid
+    });
+
+    navigation.navigate("Home");
   }
 
   function onLongPress() {
@@ -50,6 +55,8 @@ export default function People({ navigation }) {
   const [ME, set_ME] = useGlobal('me');
   const [FRIEND, set_FRIEND] = useGlobal('friend');
 
+  console.log(ME)
+
   function onpress_add() {
     navigation.navigate("Add");
   }
@@ -73,7 +80,7 @@ export default function People({ navigation }) {
         data={FRIEND_DATA}
         extraData={FRIEND_DATA}
         renderItem={({ item }) => (
-          <Item user={item} navigation={navigation} />
+          <Item user={item} ME={ME} navigation={navigation} />
         )}
         keyExtractor={item => item.id}
       />

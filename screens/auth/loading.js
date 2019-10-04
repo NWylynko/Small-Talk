@@ -71,8 +71,11 @@ export default function Loading({ navigation }) {
 
         snapshot.forEach(doc => {
           let data = doc.data();
+
           data.id = n;
           n++;
+
+          data.uid = doc.id
 
           new_DATA.push(data);
         });
