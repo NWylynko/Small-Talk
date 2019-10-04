@@ -21,6 +21,7 @@ export default function Input() {
     >
       <TextInput
         blurOnSubmit={false}
+        autoFocus={true}
         style={styles.input}
         onChangeText={text => onChangeText(text)}
         value={value}
