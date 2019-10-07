@@ -23,6 +23,8 @@ import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
 
+var search_unsub;
+
 export default function Add({ navigation }) {
 
   const [inputValue, set_inputValue] = useState("");
@@ -31,12 +33,14 @@ export default function Add({ navigation }) {
 
   function onSubmit(data) {
 
+    if (search_unsub) { search_unsub(); }
+
     if (data != '') {
       set_loading(true);
 
       const search = data;
 
-      DB.collection('users')
+      search_unsub = DB.collection('users')
         .where('username_search', 'array-contains', search)
         .limit(15)
         .onSnapshot((snapshot) => {
@@ -76,7 +80,7 @@ export default function Add({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Back navigation={navigation} />
+      <Back navigation={navigation} search_unsub={search_unsub} />
       <People DATA={DATA} loading={loading} />
       <KeyboardAvoidingView
         style={styles.keyboard}

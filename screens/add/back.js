@@ -3,12 +3,19 @@ import { StyleSheet, Text } from "react-native";
 import config from "../config.json";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function Back({ navigation }) {
+export default function Back({ navigation, search_unsub }) {
+
+  function unsub() {
+    navigation.goBack();
+    if (search_unsub) {
+      search_unsub();
+    }
+  }
 
   return (
-    <TouchableOpacity style={styles.container} onPress={navigation.goBack}>
+    <TouchableOpacity style={styles.container} onPress={unsub} >
       <Text style={styles.back}>Back</Text>
-    </TouchableOpacity>
+    </TouchableOpacity >
   );
 }
 
