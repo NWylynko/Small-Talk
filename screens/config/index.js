@@ -15,10 +15,10 @@ export default function Config({ navigation }) {
 
   function logout() {
 
-    UNSUB_me()
-    UNSUB_data()
-    UNSUB_friend()
-    UNSUB_friends()
+    if (UNSUB_me) { UNSUB_me() }
+    if (UNSUB_data) { UNSUB_data() }
+    if (UNSUB_friend) { UNSUB_friend() }
+    if (UNSUB_friends) { UNSUB_friends() }
 
     firebase.auth().signOut().then(function() {
 
