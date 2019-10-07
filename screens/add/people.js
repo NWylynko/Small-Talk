@@ -1,38 +1,51 @@
 import React from "react";
-import { SafeAreaView, View, FlatList, StyleSheet, Text } from "react-native";
+import { SafeAreaView, View, FlatList, StyleSheet, Text, ActivityIndicator } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import config from "../config.json";
-import DATA from "./people-test-data.json";
+//import DATA from "./people-test-data.json";
 
 import time from "../../tools/time";
 
 function Item({ item }) {
   return (
     <TouchableOpacity>
-    <View style={styles.item}>
-      
-      <Text style={styles.name}>{item.name}  </Text>
-      <Text style={styles.username}>{item.username}</Text>
-      <Text style={styles.status}>{item.status}</Text>
-      
-    </View>
+      <View style={styles.item}>
+
+        <Text style={styles.name}>{item.realname}  </Text>
+        <Text style={styles.username}>{item.username}</Text>
+        <Text style={styles.status}>{item.status}</Text>
+
+      </View>
     </TouchableOpacity>
   );
 }
 
-export default function People() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={({ item }) => (
-          <Item item={item} />
-        )}
-        keyExtractor={item => item.id}
-      />
-    </SafeAreaView>
-  );
+export default function People({ DATA, loading }) {
+
+  if (loading) {
+
+    return (
+      <View style={styles.loading_container}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text>Loading People...</Text>
+      </View>
+    );
+
+  } else {
+    return (
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={DATA}
+          extraData={DATA}
+          renderItem={({ item }) => (
+            <Item item={item} />
+          )}
+          keyExtractor={item => item.id}
+        />
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -62,5 +75,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     position: "absolute",
     right: 5,
+  },
+  loading_container: {
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 });

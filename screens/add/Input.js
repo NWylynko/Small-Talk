@@ -3,26 +3,18 @@ import { TextInput, StyleSheet, KeyboardAvoidingView } from "react-native";
 import Constants from "expo-constants";
 import config from "../config.json";
 
-export default function Input() {
-  const [value, onChange_userSearch] = React.useState("");
-
+export default function Input({ inputValue, set_inputValue, set_loading, onSubmit }) {
   return (
     <KeyboardAvoidingView style={styles.keyboard} behavior="padding" enabled>
       <TextInput
         style={styles.input}
-        onChangeText={text => onChange_userSearch(text)}
-        value={value}
-        onSubmitEditing={data => onSubmitEditing(data)}
+        onChangeText={text => {set_inputValue(text); onSubmit(text);}}
+        value={inputValue}
         placeholder="Search..."
         paddingLeft={10}
       />
     </KeyboardAvoidingView>
   );
-}
-
-function onSubmitEditing(data) {
-  console.log(data.timeStamp);
-  console.log(data.nativeEvent.text);
 }
 
 const styles = StyleSheet.create({

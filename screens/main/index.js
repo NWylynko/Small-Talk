@@ -6,6 +6,9 @@ import Input from "./Input";
 import People_Select from "../people/People";
 
 export default function App({ navigation }) {
+
+  console.log('showing app')
+
   return (
     <View style={styles.container}>
       <People_Select to={"People"} navigation={navigation} />

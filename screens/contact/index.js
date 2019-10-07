@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -10,17 +10,30 @@ import {
   TextInput
 } from "react-native";
 import Constants from "expo-constants";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import config from "../config.json";
 import time from "../../tools/time";
 
-import DATA from "./index-test-data.json";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import firebase from "../../firebase/index";
+import "firebase/firestore";
+const DB = firebase.firestore();
 
 export default function Contact({ navigation }) {
-  const [nickname, onChangenickname] = React.useState(DATA.nickname);
 
-  const user_id = navigation.state.params.friendID;
+  const [CONTACT, set_CONTACT] = useState(navigation.state.params.user);
+  const [nickname, onChangenickname] = React.useState(CONTACT.nickname);
+
+  console.log(CONTACT)
+
+  useEffect(() => {
+    DB.collection("users")
+      .doc(CONTACT.uid)
+      .onSnapshot(snapshot => {
+        console.log(snapshot.data())
+      });
+  }, [false]);
+
 
   function onPress_Apply() {
     navigation.goBack();
@@ -33,8 +46,8 @@ export default function Contact({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.keyboard} behavior="padding" enabled>
-        <Text style={styles.name}>{DATA.name}</Text>
-        <Text style={styles.username}>{DATA.username}</Text>
+        <Text style={styles.name}>{CONTACT.name}</Text>
+        <Text style={styles.username}>{CONTACT.username}#{CONTACT.username_num}</Text>
         <View style={{ flexDirection: "row", alignSelf: "center" }}>
           <Text>Nickname: </Text>
           <TextInput

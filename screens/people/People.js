@@ -11,6 +11,7 @@ export default function People_Select({ navigation, to}) {
   const [FRIEND, set_FRIEND] = useGlobal('friend');
 
   function onPress() {
+    console.log("navigate People_Select => "+ to)
     navigation.navigate(to, { FRIEND, ME });
   }
   return (

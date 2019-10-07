@@ -8,63 +8,63 @@ import Contact from "./screens/contact/index";
 import Add from "./screens/add/index";
 import Config from "./screens/config/index"
 
-import Login from "./screens/auth/index";
 import Loading from "./screens/auth/loading";
+import Switch from "./screens/auth/switch";
 
-import Switch from "./screens/debug/switch";
-import Fake_Login from "./screens/debug/login";
+import Login from "./screens/auth/index";
+import NewUser from "./screens/auth/newuser";
+
+const screenOptions = {
+  navigationOptions: {
+    header: null
+  }
+}
 
 const App = createStackNavigator({
   Home: {
     screen: Home,
-    navigationOptions: {
-      header: null
-    }
+    ...screenOptions
   },
   People: {
     screen: People,
-    navigationOptions: {
-      header: null
-    }
+    ...screenOptions
   },
   Contact: {
     screen: Contact,
-    navigationOptions: {
-      header: null
-    }
+    ...screenOptions
   },
   Add: {
     screen: Add,
-    navigationOptions: {
-      header: null
-    }
+    ...screenOptions
   },
   Config: {
     screen: Config,
-    navigationOptions: {
-      header: null
-    }
+    ...screenOptions
   }
 });
 
-const Auth = createStackNavigator({ 
+const Auth = createStackNavigator({
   Login: {
     screen: Login,
-    navigationOptions: {
-      header: null
-    }
+    ...screenOptions
+  },
+  NewUser: {
+    screen: NewUser,
+    ...screenOptions
+  }
+
+})
+
+const Start = createStackNavigator({
+  Switch: {
+    screen: Switch,
+    ...screenOptions
   },
   Loading: {
     screen: Loading,
-    navigationOptions: {
-      header: null
-    }
-  }
- })
+    ...screenOptions
+  },
 
-const Dev = createStackNavigator({
-  Switch,
-  Fake_Login
 })
 
 export default createAppContainer(
@@ -72,10 +72,10 @@ export default createAppContainer(
     {
       Auth,
       App,
-      Dev,
+      Start,
     },
     {
-      initialRouteName: "Dev"
+      initialRouteName: "Start"
     }
   )
 );

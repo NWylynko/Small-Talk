@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useGlobal } from "reactn";
-
+import Constants from "expo-constants";
 import People_Select from "./People";
 
 import config from "../config.json";
@@ -26,12 +26,13 @@ function Item({ user, ME, navigation }) {
       current_friend: user.uid
     });
 
+    console.log("navigate People => Home")
     navigation.navigate("Home");
   }
 
   function onLongPress() {
-    friendID = user.id;
-    navigation.navigate("Contact", { friendID });
+    console.log("navigate People => Contact")
+    navigation.navigate("Contact", { user });
   }
 
    return (
@@ -55,10 +56,12 @@ export default function People({ navigation }) {
   const [ME, set_ME] = useGlobal('me');
 
   function onpress_add() {
+    console.log("navigate People => Add")
     navigation.navigate("Add");
   }
 
   function onpress_config() {
+    console.log("navigate People => Config")
     navigation.navigate("Config");
   }
 
@@ -117,6 +120,7 @@ const styles = StyleSheet.create({
     textAlign: "right"
   },
   icons: {
+    marginBottom: Constants.statusBarHeight,
     flexDirection: "row",
     justifyContent: "center",
     height: 50
