@@ -131,6 +131,11 @@ function Email({ show, EMAIL_LOGIN, Submit_Email }) {
           placeholder={"Email"}
           padding={10}
           autoFocus={true}
+          autoCapitalize={false}
+          autoCorrect={false}
+          autoCompleteType={'email'}
+          keyboardType={'email-address'}
+          textContentType={'emailAddress'}
         />
         <TextInput
           style={[styles.old, styles.button]}
@@ -139,6 +144,12 @@ function Email({ show, EMAIL_LOGIN, Submit_Email }) {
           placeholder={"Password"}
           padding={10}
           onSubmitEditing={() => Submit_Email(email, password)}
+          autoCapitalize={false}
+          autoCorrect={false}
+          autoCompleteType={'password'}
+          keyboardType={'default'}
+          secureTextEntry={true}
+          textContentType={'password'}
         />
         <TouchableOpacity style={[styles.old, styles.button]} onPress={() => { Submit_Email(email, password) }}>
           <Text>{EMAIL_LOGIN}</Text>

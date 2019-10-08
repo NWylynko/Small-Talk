@@ -87,6 +87,9 @@ export default function NewUser({ navigation }) {
           placeholder={"Name"}
           padding={10}
           autoFocus={true}
+          autoCompleteType={'name'}
+          textContentType={'name'}
+          autoCapitalize={'words'}
         />
         <TextInput
           style={styles.button}
@@ -96,6 +99,8 @@ export default function NewUser({ navigation }) {
           padding={10}
           autoCapitalize={false}
           autoCorrect={false}
+          autoCompleteType={username}
+          
         />
         <TouchableOpacity style={styles.button} onPress={submit} disabled={unavailabile}>
           <Text>{Submit}</Text>

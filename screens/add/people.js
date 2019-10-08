@@ -1,6 +1,8 @@
 import React from "react";
 import { SafeAreaView, View, FlatList, StyleSheet, Text, ActivityIndicator } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useGlobal } from 'reactn';
+
 
 import config from "../config.json";
 //import DATA from "./people-test-data.json";
@@ -11,11 +13,11 @@ import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
 
-function Item({ item }) {
+function Item({ item, me }) {
 
   function press(uid) {
 
-    const userID = firebase.auth().currentUser.uid
+    const userID = me.userID
 
     console.log("friend id: " + uid)
 
@@ -40,7 +42,7 @@ function Item({ item }) {
                 .collection('friends').doc(userID)
                 .set({
                   chatID: ref.id,
-                  nickname: item.realname,
+                  nickname: me.realname,
                   status: "friend"
                 })
 
@@ -73,6 +75,8 @@ function Item({ item }) {
 
 export default function People({ DATA, loading }) {
 
+  const [ME, set_ME] = useGlobal('me');
+
   if (loading) {
 
     return (
@@ -89,7 +93,7 @@ export default function People({ DATA, loading }) {
           data={DATA}
           extraData={DATA}
           renderItem={({ item }) => (
-            <Item item={item} />
+            <Item item={item} me={ME} />
           )}
           keyExtractor={item => item.id}
         />
