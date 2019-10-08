@@ -7,7 +7,7 @@ import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
 
-subs = []
+let subs = []
 
 export default function Loading({ navigation }) {
   console.log("globals")
@@ -27,9 +27,9 @@ export default function Loading({ navigation }) {
     let userID = firebase.auth().currentUser.uid;
     console.log("userID: " + userID)
 
-    snapshot = navigation.state.params.snapshot
+    let snapshot = navigation.state.params.snapshot
 
-    new_me = snapshot.data()
+    let new_me = snapshot.data()
     console.log(new_me)
 
     new_me.userID = userID
@@ -52,6 +52,9 @@ export default function Loading({ navigation }) {
       navigation.navigate('App');
 
     } else {
+
+      if (UNSUB_friend) { UNSUB_friend() }
+      
       set_UNSUB_friend(DB.collection("users")
         .doc(userID)
         .collection("friends")
@@ -106,7 +109,7 @@ export default function Loading({ navigation }) {
         }));
     }
 
-
+    if (UNSUB_friends) { UNSUB_friends() }
 
     set_UNSUB_friends(DB.collection("users")
       .doc(userID)
@@ -134,11 +137,7 @@ export default function Loading({ navigation }) {
           new_DATA.push(data);
         });
 
-        if (!(FRIEND_DATA)) {
-          set_FRIEND_DATA(new_DATA);
-        } else {
-          set_FRIEND_DATA(FRIEND_DATA.concat(new_DATA));
-        }
+        set_FRIEND_DATA(new_DATA);
 
       }));
 

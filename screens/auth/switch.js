@@ -5,11 +5,12 @@ import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
 
-user_data = {}
+let user_data = {}
 
 export default function Switch({ navigation }) {
 
   const [UNSUB_me, set_UNSUB_me] = useGlobal('unsub_me');
+  const [DATA, set_DATA] = useGlobal('data');
 
   useEffect(() => {
 
@@ -28,6 +29,9 @@ export default function Switch({ navigation }) {
 
               console.log("user snapshot data: ...")
               console.log(snapshot.data())
+
+              console.log('setting data to null')
+              set_DATA([]);
 
               if (snapshot.data() === undefined) {
                 console.log('navigate Switch => NewUser')
