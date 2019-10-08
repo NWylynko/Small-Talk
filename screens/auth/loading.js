@@ -45,7 +45,7 @@ export default function Loading({ navigation }) {
         id: "0",
         from: false,
         timestamp: Date.now(),
-        text: "Welcome to Small Talk :), to get started press the button at the top, then click Add at the bottom and search for your friends"
+        text: "Welcome to Small Talk, " + new_me.realname + ", to get started press the button at the top, then click Add at the bottom and search for your friends"
       }])
 
       console.log("navigate loading => App")

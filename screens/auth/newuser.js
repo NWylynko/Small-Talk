@@ -8,8 +8,10 @@ const DB = firebase.firestore();
 
 export default function NewUser({ navigation }) {
 
-  const [realname, set_realname] = useState(false)
-  const [username, set_showEmail] = useState(false)
+  const [realname, set_realname] = useState("")
+  const [username, set_username] = useState("")
+  const [unavailabile, set_unavailabile] = useState(false)
+  const [Submit, set_submit] = useState('Submit')
 
   const [loading, set_loading] = useState(false)
 
@@ -17,30 +19,57 @@ export default function NewUser({ navigation }) {
 
   function submit() {
 
+    name = username.toLowerCase()
+
     console.log("submit newuser")
 
     if (!(loading)) {
       set_loading(true)
     }
-    
+
     let user_data = {
       realname,
-      username,
+      username: name,
       current_friend: "0",
-      username_search: generateSearch(username).concat(generateSearch(realname))
+      username_search: generateSearch(name).concat(generateSearch(name))
     };
-    
+
     DB.collection('users').doc(userID).set(user_data);
 
     console.log("done?")
 
   }
 
+  function tryUsername(name) {
+    name = name.toLowerCase()
+
+    if (!(username && realname)) {
+      set_submit('Please fill out both fields')
+      set_unavailabile(true)
+    } else {
+      DB.collection('users').where('username', '==', name).get()
+      .then(snapshot => {
+        if (!(snapshot.empty)) {
+          set_submit('That Username is taken, try something different')
+          set_unavailabile(true)
+        } else {
+          set_submit('Submit')
+          set_unavailabile(false)
+        }
+      })
+      .catch(error => {
+        console.log("error: " + error)
+      })
+    }
+
+    
+  }
+
   if (loading) {
     return (
       <View style={styles.loading_container}>
-      <ActivityIndicator size="large" color="#0000ff" />
-      <Text>Creating New User...</Text>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text>Creating New User...</Text>
       </View>
     )
   } else {
@@ -53,7 +82,7 @@ export default function NewUser({ navigation }) {
       >
         <TextInput
           style={styles.button}
-          onChangeText={text => set_realname(text)}
+          onChangeText={text => { set_realname(text); tryUsername(text); }}
           value={realname}
           placeholder={"Name"}
           padding={10}
@@ -61,22 +90,22 @@ export default function NewUser({ navigation }) {
         />
         <TextInput
           style={styles.button}
-          onChangeText={text => set_showEmail(text)}
+          onChangeText={text => { set_username(text.toLowerCase()); tryUsername(text); }}
           value={username}
           placeholder={"Username"}
           padding={10}
+          autoCapitalize={false}
+          autoCorrect={false}
         />
-        <TouchableOpacity style={styles.button} onPress={submit}>
-          <Text>Submit</Text>
+        <TouchableOpacity style={styles.button} onPress={submit} disabled={unavailabile}>
+          <Text>{Submit}</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }
 }
 
-
 function generateSearch(name) {
-  name = name.toLowerCase()
   const arr = []
   let short = ''
   name.split('').forEach((character) => {
