@@ -7,14 +7,64 @@ import config from "../config.json";
 
 import time from "../../tools/time";
 
+import firebase from "../../firebase/index";
+import "firebase/firestore";
+const DB = firebase.firestore();
+
 function Item({ item }) {
+
+  function press(uid) {
+
+    const userID = firebase.auth().currentUser.uid
+
+    console.log("friend id: " + uid)
+
+    DB.collection('users').doc(userID)
+      .collection('friends').doc(uid).get()
+      .then(doc => {
+        if (!doc.exists) {
+          DB.collection('messages').add({})
+            .then(ref => {
+              console.log("messages id: " + ref.id)
+              console.log("user id: " + userID)
+
+              DB.collection('users').doc(userID)
+                .collection('friends').doc(uid)
+                .set({
+                  chatID: ref.id,
+                  nickname: item.realname,
+                  status: "friend"
+                })
+
+              DB.collection('users').doc(uid)
+                .collection('friends').doc(userID)
+                .set({
+                  chatID: ref.id,
+                  nickname: item.realname,
+                  status: "friend"
+                })
+
+
+            });
+        }
+
+        DB.collection('users').doc(userID)
+          .update({ current_friend: uid })
+      })
+      .catch(err => {
+        console.log('Error getting document', err);
+        alert(err)
+      });
+
+
+  }
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => { press(item.uid) }}>
       <View style={styles.item}>
 
-        <Text style={styles.name}>{item.realname}  </Text>
+        <Text style={styles.name}>{item.realname}</Text>
         <Text style={styles.username}>{item.username}</Text>
-        <Text style={styles.status}>{item.status}</Text>
 
       </View>
     </TouchableOpacity>

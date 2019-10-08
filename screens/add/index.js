@@ -58,6 +58,8 @@ export default function Add({ navigation }) {
           snapshot.forEach(doc => {
             let data = doc.data();
 
+            data.uid = doc.id
+
             data.id = n.toString();
             n++;
 
