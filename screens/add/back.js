@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import config from "../config.json";
-import { TouchableOpacity } from "react-native-gesture-handler";
+//import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Back({ navigation, search_unsub }) {
 

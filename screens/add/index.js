@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
   TextInput
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+//import { TouchableOpacity } from "react-native-gesture-handler";
 import Constants from "expo-constants";
 
 import config from "../config.json";

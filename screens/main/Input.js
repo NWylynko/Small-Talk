@@ -41,7 +41,7 @@ function onSubmitEditing(data, FRIEND, onChangeText) {
   var postData = {
     from: firebase.auth().currentUser.uid,
     text: data.nativeEvent.text,
-    timestamp: data.timeStamp
+    timestamp: Date.now()
   };
 
   DB.collection("messages")

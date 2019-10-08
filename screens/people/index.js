@@ -5,9 +5,10 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  Image
+  Image,
+  TouchableOpacity
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+//import { TouchableOpacity } from "react-native-gesture-handler";
 import { useGlobal } from "reactn";
 import Constants from "expo-constants";
 import People_Select from "./People";

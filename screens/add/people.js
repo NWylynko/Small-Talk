@@ -1,6 +1,6 @@
 import React from "react";
-import { SafeAreaView, View, FlatList, StyleSheet, Text, ActivityIndicator } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { SafeAreaView, View, FlatList, StyleSheet, Text, ActivityIndicator, TouchableOpacity } from "react-native";
+//import { TouchableOpacity } from "react-native-gesture-handler";
 import { useGlobal } from 'reactn';
 
 

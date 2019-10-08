@@ -8,10 +8,11 @@ import {
   Image,
   KeyboardAvoidingView,
   TextInput,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
 import Constants from "expo-constants";
-import { TouchableOpacity } from "react-native-gesture-handler";
+//import { TouchableOpacity } from "react-native-gesture-handler";
 import { useGlobal } from 'reactn';
 
 import config from "../config.json";
@@ -37,7 +38,7 @@ export default function Contact({ navigation }) {
       .doc(CONTACT.uid)
       .onSnapshot(snapshot => {
         const data = snapshot.data()
-        new_contact = CONTACT
+        let new_contact = CONTACT
         new_contact.username = data.username
         new_contact.realname = data.realname
         console.log(new_contact)
