@@ -25,6 +25,11 @@ export default function Loading({ navigation }) {
     let userID = firebase.auth().currentUser.uid;
     console.log("userID: " + userID)
 
+    DB.collection('users').doc(userID)
+    .update({
+      providerData: firebase.auth().currentUser.providerData
+    })
+
     let snapshot = navigation.state.params.snapshot
 
     let new_me = snapshot.data()
