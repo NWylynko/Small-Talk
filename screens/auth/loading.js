@@ -7,8 +7,6 @@ import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
 
-let subs = []
-
 export default function Loading({ navigation }) {
   console.log("globals")
   const [DATA, set_DATA] = useGlobal('data');
