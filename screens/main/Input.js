@@ -12,6 +12,7 @@ const DB = firebase.firestore();
 
 export default function Input() {
   const [FRIEND, set_FRIEND] = useGlobal('friend');
+  const [ME, set_ME] = useGlobal('me')
   const [value, onChangeText] = React.useState("");
   return (
     <KeyboardAvoidingView
@@ -26,7 +27,7 @@ export default function Input() {
         style={styles.input}
         onChangeText={text => onChangeText(text)}
         value={value}
-        onSubmitEditing={data => onSubmitEditing(data, FRIEND, onChangeText)}
+        onSubmitEditing={data => onSubmitEditing(data, FRIEND, onChangeText, ME)}
         placeholder="Chat..."
         padding={10}
       />
@@ -34,23 +35,34 @@ export default function Input() {
   );
 }
 
-function onSubmitEditing(data, FRIEND, onChangeText) {
+function onSubmitEditing(data, FRIEND, onChangeText, ME) {
   onChangeText("");
 
-  // A post entry.
-  var postData = {
-    from: firebase.auth().currentUser.uid,
-    text: data.nativeEvent.text,
-    timestamp: Date.now()
-  };
+  if (data.nativeEvent.text != "") {
 
-  DB.collection("messages")
-    .doc(FRIEND.chatID)
-    .collection("chat")
-    .add(postData)
-    .then(function() {
-      // success
-    });
+    // A post entry.
+    var postData = {
+      from: firebase.auth().currentUser.uid,
+      text: data.nativeEvent.text,
+      timestamp: Date.now()
+    };
+
+    DB.collection("messages")
+      .doc(FRIEND.chatID)
+      .collection("chat")
+      .add(postData)
+      .then(function () {
+        // success
+      });
+
+    DB.collection('users').doc(ME.userID)
+    .collection('friends').doc(ME.current_friend)
+    .update({
+      last_msg: data.nativeEvent.text,
+      last_timestamp: Date.now()
+    })
+
+  }
 }
 
 const styles = StyleSheet.create({

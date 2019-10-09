@@ -8,6 +8,8 @@ import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
 
+import generateSearch from "../../tools/generatesearch";
+
 export default function Config({ navigation }) {
 
   const [UNSUB_me, set_UNSUB_me] = useGlobal('unsub_me');
@@ -22,11 +24,23 @@ export default function Config({ navigation }) {
   const [username, set_username] = useState(ME.username)
 
   function done() {
+
+    var username_search;
+
+    if (realname.toLowerCase() != username.toLowerCase()) {
+      username_search = generateSearch(username).concat(generateSearch(realname))
+    } else {
+      username_search = generateSearch(username)
+    }
+
     DB.collection('users').doc(ME.userID)
     .update({
       realname,
-      username
+      username,
+      username_search
     })
+
+    navigation.goBack();
   }
 
   function logout() {

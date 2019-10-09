@@ -19,6 +19,8 @@ export default function Loading({ navigation }) {
   const [UNSUB_friend, set_UNSUB_friend] = useGlobal('unsub_friend');
   const [UNSUB_friends, set_UNSUB_friends] = useGlobal('unsub_friends');
 
+  
+
   useEffect(() => {
     console.log("effect")
 
@@ -132,7 +134,7 @@ export default function Loading({ navigation }) {
         snapshot.forEach(doc => {
           let data = doc.data();
 
-          data.id = n;
+          data.id = n.toString();
           n++;
 
           data.uid = doc.id

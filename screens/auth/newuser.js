@@ -6,6 +6,8 @@ import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
 
+import generateSearch from "../../tools/generatesearch";
+
 export default function NewUser({ navigation }) {
 
   const [realname, set_realname] = useState("")
@@ -27,11 +29,19 @@ export default function NewUser({ navigation }) {
       set_loading(true)
     }
 
+    var username_search;
+
+    if (realname.toLowerCase() != name.toLowerCase()) {
+      username_search = generateSearch(name).concat(generateSearch(realname))
+    } else {
+      username_search = generateSearch(name)
+    }
+
     let user_data = {
       realname,
       username: name,
       current_friend: "0",
-      username_search: generateSearch(name).concat(generateSearch(name))
+      username_search 
     };
 
     DB.collection('users').doc(userID).set(user_data);
@@ -108,16 +118,6 @@ export default function NewUser({ navigation }) {
       </KeyboardAvoidingView>
     );
   }
-}
-
-function generateSearch(name) {
-  const arr = []
-  let short = ''
-  name.split('').forEach((character) => {
-    short += character
-    arr.push(short)
-  })
-  return arr
 }
 
 const styles = StyleSheet.create({

@@ -12,7 +12,7 @@ export default function People_Select({ navigation, to}) {
 
   function onPress() {
     console.log("navigate People_Select => "+ to)
-    navigation.navigate(to, { FRIEND, ME });
+    navigation.navigate(to);
   }
   return (
     <View style={styles.container}>

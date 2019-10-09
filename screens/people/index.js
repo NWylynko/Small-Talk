@@ -21,6 +21,9 @@ import "firebase/firestore";
 const DB = firebase.firestore();
 
 function Item({ user, ME, navigation }) {
+
+  console.log(user)
+
   function onPress() {
 
     DB.collection("users").doc(ME.userID).update({

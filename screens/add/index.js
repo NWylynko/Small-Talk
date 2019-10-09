@@ -33,6 +33,8 @@ export default function Add({ navigation }) {
 
   function onSubmit(data) {
 
+    data = data.toLowerCase()
+
     if (search_unsub) { search_unsub(); }
 
     if (data != '') {
@@ -76,6 +78,7 @@ export default function Add({ navigation }) {
         })
     } else {
       set_DATA([])
+      set_loading(false)
     }
 
   }
