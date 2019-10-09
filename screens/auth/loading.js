@@ -19,7 +19,7 @@ export default function Loading({ navigation }) {
   const [UNSUB_friend, set_UNSUB_friend] = useGlobal('unsub_friend');
   const [UNSUB_friends, set_UNSUB_friends] = useGlobal('unsub_friends');
 
-  
+
 
   useEffect(() => {
     console.log("effect")
@@ -28,9 +28,9 @@ export default function Loading({ navigation }) {
     console.log("userID: " + userID)
 
     DB.collection('users').doc(userID)
-    .update({
-      providerData: firebase.auth().currentUser.providerData
-    })
+      .update({
+        providerData: firebase.auth().currentUser.providerData
+      })
 
     let snapshot = navigation.state.params.snapshot
 
@@ -59,19 +59,22 @@ export default function Loading({ navigation }) {
     } else {
 
       if (UNSUB_friend) { UNSUB_friend() }
-      
+
       set_UNSUB_friend(DB.collection("users")
         .doc(userID)
         .collection("friends")
         .doc(new_me.current_friend)
         .onSnapshot(snapshot => {
           console.log("set_FRIEND")
-          set_FRIEND(snapshot.data());
+
+          const friend = snapshot.data()
+
+          set_FRIEND(friend);
 
           if (UNSUB_data) { UNSUB_data() }
 
           set_UNSUB_data(DB.collection("messages")
-            .doc(snapshot.data().chatID)
+            .doc(friend.chatID)
             .collection("chat")
             .orderBy("timestamp", "desc")
             .onSnapshot(snapshot => {
@@ -110,7 +113,35 @@ export default function Loading({ navigation }) {
 
               console.log("navigate loading => App")
               navigation.navigate('App');
+
+              console.log("friend chatID: " + friend.chatID)
+              DB.collection('messages').doc(friend.chatID)
+                .get()
+                .then(doc => {
+
+                  console.log(doc.data())
+                  if (!doc.exists) {
+                    console.log('No such document!');
+                  } else {
+                    const data = doc.data()
+
+                    if (!(data.seen.includes(userID))) {
+                      console.log("seen doesn't contains " + userID)
+                      DB.collection('messages').doc(friend.chatID)
+                        .update({
+                          seen: data.seen.concat([new_me.userID])
+                        })
+                    } else {
+                      console.log("seen contains " + userID + " already")
+                    }
+                  }
+                })
+                .catch(err => {
+                  console.log('Error getting document', err);
+                });
+
             }));
+
         }));
     }
 

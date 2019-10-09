@@ -55,11 +55,11 @@ function onSubmitEditing(data, FRIEND, onChangeText, ME) {
         // success
       });
 
-    DB.collection('users').doc(ME.userID)
-    .collection('friends').doc(ME.current_friend)
+    DB.collection('messages').doc(FRIEND.chatID)
     .update({
       last_msg: data.nativeEvent.text,
-      last_timestamp: Date.now()
+      last_timestamp: Date.now(),
+      seen: [ME.userID]
     })
 
   }
