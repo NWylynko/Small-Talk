@@ -51,14 +51,9 @@ export default function Login({ navigation }) {
     }
   }
 
-  function Email_Press() {
-    console.log(EMAIL_LOGIN);
-    set_showEmail(true)
-  }
-
   function Submit_Email(email, password) {
     console.log("EMAIL_Login LoginPage: " + EMAIL_LOGIN)
-    if (EMAIL_LOGIN === 'login') {
+    if (EMAIL_LOGIN === 'Login') {
       firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -83,10 +78,10 @@ export default function Login({ navigation }) {
     if (showOld) {
       return (
         <View style={styles.email}>
-          <TouchableOpacity style={[{ marginRight: 5 }, styles.email_button, styles.button]} onPress={() => { set_EMAIL_LOGIN('login'); Email_Press(); }}>
+          <TouchableOpacity style={[{ marginRight: 5 }, styles.email_button, styles.button]} onPress={() => { set_EMAIL_LOGIN('Login'); set_showEmail(true); }}>
             <Text>Let Me Talk</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[{ marginLeft: 5 }, styles.email_button, styles.button]} onPress={() => { set_EMAIL_LOGIN('Register'); Email_Press(); }}>
+          <TouchableOpacity style={[{ marginLeft: 5 }, styles.email_button, styles.button]} onPress={() => { set_EMAIL_LOGIN('Register'); set_showEmail(true); }}>
             <Text>New Around Here</Text>
           </TouchableOpacity>
         </View>
@@ -131,7 +126,7 @@ function Email({ show, EMAIL_LOGIN, Submit_Email }) {
           placeholder={"Email"}
           padding={10}
           autoFocus={true}
-          autoCapitalize={false}
+          autoCapitalize={'none'}
           autoCorrect={false}
           autoCompleteType={'email'}
           keyboardType={'email-address'}
@@ -144,7 +139,7 @@ function Email({ show, EMAIL_LOGIN, Submit_Email }) {
           placeholder={"Password"}
           padding={10}
           onSubmitEditing={() => Submit_Email(email, password)}
-          autoCapitalize={false}
+          autoCapitalize={'none'}
           autoCorrect={false}
           autoCompleteType={'password'}
           keyboardType={'default'}

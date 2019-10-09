@@ -97,7 +97,7 @@ export default function NewUser({ navigation }) {
           value={username}
           placeholder={"Username"}
           padding={10}
-          autoCapitalize={false}
+          autoCapitalize={'none'}
           autoCorrect={false}
           autoCompleteType={username}
           
