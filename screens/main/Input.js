@@ -53,14 +53,31 @@ function onSubmitEditing(data, FRIEND, onChangeText, ME) {
       .add(postData)
       .then(function () {
         // success
+
+        console.log("message sent")
+
+
+
       });
 
-    DB.collection('messages').doc(FRIEND.chatID)
-    .update({
-      last_msg: data.nativeEvent.text,
-      last_timestamp: Date.now(),
-      seen: [ME.userID]
-    })
+    console.log("FRIEND userID: " + FRIEND.userID)
+    console.log("ME userID: " + ME.userID)
+
+    DB.collection('users').doc(FRIEND.userID)
+      .collection('friends').doc(ME.userID)
+      .update({
+        last_msg: data.nativeEvent.text,
+        last_timestamp: Date.now(),
+        seen: false
+      })
+
+    DB.collection('users').doc(ME.userID)
+      .collection('friends').doc(FRIEND.userID)
+      .update({
+        last_msg: data.nativeEvent.text,
+        last_timestamp: Date.now(),
+        seen: true
+      })
 
   }
 }

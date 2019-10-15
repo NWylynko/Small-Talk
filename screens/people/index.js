@@ -15,10 +15,13 @@ import People_Select from "./People";
 
 import config from "../config.json";
 import time from "../../tools/time";
+import difference from '../../tools/search';
 
 import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
+
+import Input from "../add/Input";
 
 function Item({ user, ME, navigation }) {
 
@@ -39,25 +42,26 @@ function Item({ user, ME, navigation }) {
     navigation.navigate("Contact", { user });
   }
 
-   return (
-     <TouchableOpacity
-       onPress={onPress}
-       onLongPress={onLongPress}
-       style={styles.user}
-     >
-       <Text style={styles.name}>{user.nickname}</Text>
-       
-     </TouchableOpacity>
-   );
-    //
-   //<Text style={styles.last}>{last.msg}</Text>
-   //<Text style={styles.time}>{time(last.timestamp)}</Text>
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      onLongPress={onLongPress}
+      style={styles.user}
+    >
+      <Text style={styles.name}>{user.nickname}</Text>
+      <Text style={styles.last}>{user.last_msg}</Text>
+      <Text style={styles.time}>{time(user.last_timestamp)}</Text>
+    </TouchableOpacity>
+  );
 }
 
 export default function People({ navigation }) {
 
-  const [FRIEND_DATA, set_FRIEND_DATA] = useGlobal('friend_data');
+  const [global_FRIEND_DATA, global_set_FRIEND_DATA] = useGlobal('friend_data');
   const [ME, set_ME] = useGlobal('me');
+
+  const [FRIEND_DATA, set_FRIEND_DATA] = useState(global_FRIEND_DATA);
+  const [search, set_search] = useState('')
 
   function onpress_add() {
     console.log("navigate People => Add")
@@ -67,6 +71,19 @@ export default function People({ navigation }) {
   function onpress_config() {
     console.log("navigate People => Config")
     navigation.navigate("Config");
+  }
+
+  function onSearch(text) {
+
+    data = FRIEND_DATA
+
+    data.forEach((item) => {
+      item.search = difference(text, item.nickname)
+    })
+
+    data.sort((a, b) => (a.search > b.search) ? 1 : -1)
+
+    set_FRIEND_DATA(data)
   }
 
   return (
@@ -85,6 +102,8 @@ export default function People({ navigation }) {
         )}
         keyExtractor={item => item.id}
       />
+
+      <Input inputValue={search} set_inputValue={set_search} onSubmit={onSearch} />
 
       <View style={styles.icons}>
         <TouchableOpacity onPress={onpress_config}>

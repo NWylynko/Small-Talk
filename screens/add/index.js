@@ -91,7 +91,7 @@ export default function Add({ navigation }) {
         style={styles.keyboard}
         behavior="padding"
         enabled>
-        <Input inputValue={inputValue} set_inputValue={set_inputValue} set_loading={DATA} onSubmit={onSubmit} />
+        <Input inputValue={inputValue} set_inputValue={set_inputValue} onSubmit={onSubmit} style={{marginBottom: Constants.statusBarHeight + 5}} />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

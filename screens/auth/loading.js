@@ -67,7 +67,10 @@ export default function Loading({ navigation }) {
         .onSnapshot(snapshot => {
           console.log("set_FRIEND")
 
-          const friend = snapshot.data()
+          let friend = snapshot.data()
+          console.log("snapshot id: " + snapshot.id)
+          friend.userID = snapshot.id
+          console.log(friend)
 
           set_FRIEND(friend);
 
@@ -114,33 +117,15 @@ export default function Loading({ navigation }) {
               console.log("navigate loading => App")
               navigation.navigate('App');
 
-              console.log("friend chatID: " + friend.chatID)
-              DB.collection('messages').doc(friend.chatID)
-                .get()
-                .then(doc => {
-
-                  console.log(doc.data())
-                  if (!doc.exists) {
-                    console.log('No such document!');
-                  } else {
-                    const data = doc.data()
-
-                    if (!(data.seen.includes(userID))) {
-                      console.log("seen doesn't contains " + userID)
-                      DB.collection('messages').doc(friend.chatID)
-                        .update({
-                          seen: data.seen.concat([new_me.userID])
-                        })
-                    } else {
-                      console.log("seen contains " + userID + " already")
-                    }
-                  }
-                })
-                .catch(err => {
-                  console.log('Error getting document', err);
-                });
-
             }));
+
+          console.log("friend chatID: " + friend.chatID)
+          console.log("friend uid: " + snapshot.id)
+          DB.collection('users').doc(new_me.userID)
+            .collection('friends').doc(snapshot.id)
+            .update({
+              seen: true
+            })
 
         }));
     }
