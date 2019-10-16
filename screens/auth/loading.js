@@ -27,10 +27,15 @@ export default function Loading({ navigation }) {
     let userID = firebase.auth().currentUser.uid;
     console.log("userID: " + userID)
 
-    DB.collection('users').doc(userID)
+    try {
+      DB.collection('users').doc(userID)
       .update({
         providerData: firebase.auth().currentUser.providerData
       })
+    } catch(err) {
+      console.log("couldnt update providerData...")
+      console.log(err)
+    }
 
     let snapshot = navigation.state.params.snapshot
 
