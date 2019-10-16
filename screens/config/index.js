@@ -125,8 +125,9 @@ const styles = StyleSheet.create({
     borderColor: "#b32727",
     borderWidth: 6,
     position: "absolute",
-    bottom: 0,
+    bottom: 3,
     padding: 5,
+    left: 0,
 
   },
   loading: {
