@@ -17,7 +17,7 @@ export default function NewUser({ navigation }) {
 
   const [loading, set_loading] = useState(false)
 
-  userID = firebase.auth().currentUser.uid;
+  let userID = firebase.auth().currentUser.uid;
 
   function submit() {
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, TouchableOpacity, Text, View, TextInput, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, TouchableOpacity, Text, View, TextInput, KeyboardAvoidingView, ActivityIndicator } from "react-native";
 import Constants from "expo-constants";
 
 import firebase from "../../firebase/index";
@@ -17,8 +17,10 @@ export default function Login({ navigation }) {
   const [showOld, set_showOld] = useState(false)
   const [showEmail, set_showEmail] = useState(false)
 
-  async function Google() {
+  const [loading, set_loading] = useState(false)
 
+  async function Google() {
+    set_loading(true)
     try {
       await GoogleSignIn.initAsync({ clientId: URLSchemes });
     } catch ({ message }) {
@@ -52,6 +54,7 @@ export default function Login({ navigation }) {
   }
 
   function Submit_Email(email, password) {
+    set_loading(true)
     console.log("EMAIL_Login LoginPage: " + EMAIL_LOGIN)
     if (EMAIL_LOGIN === 'Login') {
       firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
@@ -91,23 +94,33 @@ export default function Login({ navigation }) {
     }
   }
 
-  return (
-    <KeyboardAvoidingView
-      keyboardVerticalOffset={5}
-      style={styles.container}
-      behavior="padding"
-      enabled
-    >
-      <TouchableOpacity style={styles.button} onPress={Google}>
-        <Text>Login With Google</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={Show_Old}>
-        <Text>Old People Login</Text>
-      </TouchableOpacity>
-      <Old />
-      <Email show={showEmail} EMAIL_LOGIN={EMAIL_LOGIN} Submit_Email={Submit_Email} />
-    </KeyboardAvoidingView>
-  );
+  if (loading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text>Authenticating...</Text>
+      </View>
+    )
+  } else {
+    return (
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={5}
+        style={styles.container}
+        behavior="padding"
+        enabled
+      >
+        <TouchableOpacity style={styles.button} onPress={Google} disabled>
+          <Text>Login With Google</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={Show_Old}>
+          <Text>Old People Login</Text>
+        </TouchableOpacity>
+        <Old />
+        <Email show={showEmail} EMAIL_LOGIN={EMAIL_LOGIN} Submit_Email={Submit_Email} />
+      </KeyboardAvoidingView>
+    );
+  }
+  
 }
 
 
@@ -185,5 +198,11 @@ const styles = StyleSheet.create({
   },
   oldcontainer: {
     alignItems: "center",
-  }
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 });
