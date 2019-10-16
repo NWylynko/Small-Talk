@@ -103,7 +103,6 @@ export default function People({ navigation }) {
         keyExtractor={item => item.id}
       />
 
-      <Input inputValue={search} set_inputValue={set_search} onSubmit={onSearch} />
 
       <View style={styles.icons}>
         <TouchableOpacity onPress={onpress_config}>
@@ -116,6 +115,8 @@ export default function People({ navigation }) {
     </View>
   );
 }
+
+//<Input inputValue={search} set_inputValue={set_search} onSubmit={onSearch} />
 
 const styles = StyleSheet.create({
   container: {

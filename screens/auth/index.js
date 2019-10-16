@@ -62,6 +62,7 @@ export default function Login({ navigation }) {
         var errorMessage = error.message;
         console.log(errorCode)
         console.log(errorMessage)
+        set_loading(false)
         alert(errorMessage)
       })
     } else {
@@ -70,6 +71,7 @@ export default function Login({ navigation }) {
         var errorMessage = error.message;
         console.log(errorCode)
         console.log(errorMessage)
+        set_loading(false)
         alert(errorMessage)
       });
     }
