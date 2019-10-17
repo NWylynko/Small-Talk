@@ -20,8 +20,6 @@ export default function Loading({ navigation }) {
   const [UNSUB_friend, set_UNSUB_friend] = useGlobal('unsub_friend');
   const [UNSUB_friends, set_UNSUB_friends] = useGlobal('unsub_friends');
 
-
-
   useEffect(() => {
     console.log("effect")
 
@@ -43,147 +41,139 @@ export default function Loading({ navigation }) {
     let new_me = snapshot.data()
 
     if (new_me) {
-    console.log(new_me)
+      console.log(new_me)
 
-    new_me.userID = userID
-    set_ME(new_me);
+      new_me.userID = userID
+      set_ME(new_me);
 
-    if (new_me.current_friend === '0') {
-      console.log("is new user")
+      if (new_me.current_friend === '0') {
+        console.log("is new user")
 
-      set_FRIEND({
-        nickname: "Small Talk"
-      })
-      set_DATA([{
-        id: "0",
-        from: false,
-        timestamp: Date.now(),
-        text: "Welcome to Small Talk, " + new_me.realname + ", to get started press the button at the top, then click Add at the bottom and search for your friends"
-      }])
+        set_FRIEND({
+          nickname: "Small Talk"
+        })
+        set_DATA([{
+          id: "0",
+          from: false,
+          timestamp: Date.now(),
+          text: "Welcome to Small Talk, " + new_me.realname + ", to get started press the button at the top, then click Add at the bottom and search for your friends"
+        }])
 
-      console.log("navigate loading => App")
-      navigation.navigate('App');
+        console.log("navigate loading => App")
+        navigation.navigate('App');
 
-    } else {
+      } else {
 
-      if (UNSUB_friend) { UNSUB_friend(); console.log("unsubbing friend") }
+        DB.collection('users').doc(new_me.userID)
+          .collection('friends').doc(new_me.current_friend)
+          .update({
+            seen: true
+          })
 
-      set_UNSUB_friend(DB.collection("users")
+        console.log("getting friend data")
+
+        if (UNSUB_friend) { UNSUB_friend(); console.log("unsubbing friend") }
+
+        set_UNSUB_friend(DB.collection("users")
+          .doc(userID)
+          .collection("friends")
+          .doc(new_me.current_friend)
+          .onSnapshot(snapshot => {
+            console.log("set_FRIEND")
+
+            let friend = snapshot.data()
+            if (friend) {
+              console.log("snapshot id: " + snapshot.id)
+
+              friend.userID = snapshot.id
+
+              console.log(friend)
+
+              if (UNSUB_data) { UNSUB_data.off(); console.log("unsubbing messages") }
+
+              const messages = realDB.ref("msg/" + friend.chatID).orderByChild('timestamp')
+
+              messages.on("value", function (snapshot) {
+
+                var n = 0;
+
+                var new_DATA = [];
+
+                snapshot.forEach(data => {
+                  data = data.val()
+
+                  console.log(data)
+
+                  data.id = n.toString();
+                  n++;
+
+                  if (data.from === userID) {
+                    data.from = true;
+                  } else {
+                    data.from = false;
+                  }
+
+                  new_DATA.push(data);
+                });
+
+                new_DATA.reverse()
+
+                set_DATA(new_DATA);
+
+                console.log("navigate loading => App")
+                navigation.navigate('App');
+
+
+              }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+              });
+
+              set_FRIEND(friend);
+              set_UNSUB_data(messages)
+
+              console.log("friend chatID: " + friend.chatID)
+              console.log("friend uid: " + snapshot.id)
+
+
+            } else {
+              console.log("no friend data")
+            }
+
+          }));
+      }
+
+      if (UNSUB_friends) { UNSUB_friends(); console.log("unsubbed friends") }
+
+      set_UNSUB_friends(DB.collection("users")
         .doc(userID)
         .collection("friends")
-        .doc(new_me.current_friend)
         .onSnapshot(snapshot => {
-          console.log("set_FRIEND")
 
-          let friend = snapshot.data()
-          if (friend) {
-            console.log("snapshot id: " + snapshot.id)
+          var n;
 
-            friend.userID = snapshot.id
-
-
-            console.log(friend)
-
-            set_FRIEND(friend);
-
-            if (UNSUB_data) { UNSUB_data.off(); console.log("unsubbing messages") }
-
-            const messages = realDB.ref("msg/" + friend.chatID).orderByChild('timestamp')
-
-            set_UNSUB_data(messages)
-            
-            messages.on("value", function(snapshot) {
-
-              var n;
-
-              if (!(DATA)) {
-                n = 0
-              } else {
-                n = DATA.length;
-              }
-
-              var new_DATA = [];
-
-              snapshot.forEach(data => {
-                data = data.val()
-
-                data.id = n.toString();
-                n++;
-
-                if (data.from === userID) {
-                  data.from = true;
-                } else {
-                  data.from = false;
-                }
-
-                
-
-                new_DATA.push(data);
-              });
-              console.log("SET_DATA...")
-              console.log(new_DATA)
-
-              new_DATA.reverse()
-
-              if (!(DATA)) {
-                set_DATA(new_DATA);
-              } else {
-                set_DATA(DATA.concat(new_DATA));
-              }
-
-              console.log("navigate loading => App")
-              navigation.navigate('App');
-
-
-            }, function (errorObject) {
-              console.log("The read failed: " + errorObject.code);
-            });
-
-            console.log("friend chatID: " + friend.chatID)
-            console.log("friend uid: " + snapshot.id)
-            DB.collection('users').doc(new_me.userID)
-              .collection('friends').doc(snapshot.id)
-              .update({
-                seen: true
-              })
-
+          if (!(FRIEND_DATA)) {
+            n = 0
+          } else {
+            n = FRIEND_DATA.length;
           }
 
+          var new_DATA = [];
+
+          snapshot.forEach(doc => {
+            let data = doc.data();
+
+            data.id = n.toString();
+            n++;
+
+            data.uid = doc.id
+
+            new_DATA.push(data);
+          });
+
+          set_FRIEND_DATA(new_DATA);
+
         }));
-    }
 
-    if (UNSUB_friends) { UNSUB_friends(); console.log("unsubbed friends") }
-
-    set_UNSUB_friends(DB.collection("users")
-      .doc(userID)
-      .collection("friends")
-      .onSnapshot(snapshot => {
-
-        var n;
-
-        if (!(FRIEND_DATA)) {
-          n = 0
-        } else {
-          n = FRIEND_DATA.length;
-        }
-
-        var new_DATA = [];
-
-        snapshot.forEach(doc => {
-          let data = doc.data();
-
-          data.id = n.toString();
-          n++;
-
-          data.uid = doc.id
-
-          new_DATA.push(data);
-        });
-
-        set_FRIEND_DATA(new_DATA);
-
-      }));
-    
     }
 
   }, [false]);

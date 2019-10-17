@@ -73,6 +73,9 @@ export default function People({ navigation }) {
   const [FRIEND_DATA, set_FRIEND_DATA] = useGlobal('friend_data');
   const [ME, set_ME] = useGlobal('me');
 
+  //console.log("sorted friends list...")
+  FRIEND_DATA.sort((a, b) => (a.last_timestamp > b.last_timestamp) ? 1 : -1).reverse()
+
   //const [FRIEND_DATA, set_FRIEND_DATA] = useState(global_FRIEND_DATA);
   const [search, set_search] = useState('')
 

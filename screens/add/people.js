@@ -27,15 +27,18 @@ function Item({ item, me }) {
       .then(doc => {
         if (!doc.exists) {
 
-          const ref = database.ref("msg").push({});
+          const ref = realDB.ref("msg").push({});
 
-          console.log("messages id: " + ref.id)
+          const chatID = ref.key
+          console.log(chatID)
+
+          console.log("messages id: " + chatID)
           console.log("user id: " + userID)
 
           DB.collection('users').doc(userID)
             .collection('friends').doc(uid)
             .set({
-              chatID: ref.id,
+              chatID,
               nickname: item.realname,
               status: "friend"
             })
@@ -43,7 +46,7 @@ function Item({ item, me }) {
           DB.collection('users').doc(uid)
             .collection('friends').doc(userID)
             .set({
-              chatID: ref.id,
+              chatID,
               nickname: me.realname,
               status: "friend"
             })
@@ -56,7 +59,7 @@ function Item({ item, me }) {
       })
       .catch(err => {
         console.log('Error getting document', err);
-        alert(err)
+        alert("soz something didnt work xx")
       });
 
 
