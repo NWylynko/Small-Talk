@@ -8,7 +8,8 @@ import config from "../config.json";
 import firebase from "../../firebase/index";
 import "firebase/firestore";
 
-const DB = firebase.firestore();
+const storeDB = firebase.firestore();
+const realDB = firebase.database();
 
 export default function Input() {
   const [FRIEND, set_FRIEND] = useGlobal('friend');
@@ -47,23 +48,25 @@ function onSubmitEditing(data, FRIEND, onChangeText, ME) {
       timestamp: Date.now()
     };
 
-    DB.collection("messages")
-      .doc(FRIEND.chatID)
-      .collection("chat")
-      .add(postData)
-      .then(function () {
-        // success
+    realDB.ref("msg/" + FRIEND.chatID).push(postData);
 
-        console.log("message sent")
+    // storeDB.collection("messages")
+    //   .doc(FRIEND.chatID)
+    //   .collection("chat")
+    //   .add(postData)
+    //   .then(function () {
+    //     // success
+
+    //     console.log("message sent")
 
 
 
-      });
+    //   });
 
     console.log("FRIEND userID: " + FRIEND.userID)
     console.log("ME userID: " + ME.userID)
 
-    DB.collection('users').doc(FRIEND.userID)
+    storeDB.collection('users').doc(FRIEND.userID)
       .collection('friends').doc(ME.userID)
       .update({
         last_msg: data.nativeEvent.text,
@@ -71,7 +74,7 @@ function onSubmitEditing(data, FRIEND, onChangeText, ME) {
         seen: false
       })
 
-    DB.collection('users').doc(ME.userID)
+    storeDB.collection('users').doc(ME.userID)
       .collection('friends').doc(FRIEND.userID)
       .update({
         last_msg: data.nativeEvent.text,

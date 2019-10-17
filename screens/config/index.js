@@ -46,7 +46,7 @@ export default function Config({ navigation }) {
   function logout() {
 
     if (UNSUB_me) { UNSUB_me() }
-    if (UNSUB_data) { UNSUB_data() }
+    if (UNSUB_data) { UNSUB_data.off() }
     if (UNSUB_friend) { UNSUB_friend() }
     if (UNSUB_friends) { UNSUB_friends() }
 

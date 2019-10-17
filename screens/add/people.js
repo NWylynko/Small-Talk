@@ -12,6 +12,7 @@ import time from "../../tools/time";
 import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
+const realDB = firebase.database();
 
 function Item({ item, me }) {
 
@@ -25,29 +26,29 @@ function Item({ item, me }) {
       .collection('friends').doc(uid).get()
       .then(doc => {
         if (!doc.exists) {
-          DB.collection('messages').add({})
-            .then(ref => {
-              console.log("messages id: " + ref.id)
-              console.log("user id: " + userID)
 
-              DB.collection('users').doc(userID)
-                .collection('friends').doc(uid)
-                .set({
-                  chatID: ref.id,
-                  nickname: item.realname,
-                  status: "friend"
-                })
+          const ref = database.ref("msg").push({});
 
-              DB.collection('users').doc(uid)
-                .collection('friends').doc(userID)
-                .set({
-                  chatID: ref.id,
-                  nickname: me.realname,
-                  status: "friend"
-                })
+          console.log("messages id: " + ref.id)
+          console.log("user id: " + userID)
+
+          DB.collection('users').doc(userID)
+            .collection('friends').doc(uid)
+            .set({
+              chatID: ref.id,
+              nickname: item.realname,
+              status: "friend"
+            })
+
+          DB.collection('users').doc(uid)
+            .collection('friends').doc(userID)
+            .set({
+              chatID: ref.id,
+              nickname: me.realname,
+              status: "friend"
+            })
 
 
-            });
         }
 
         DB.collection('users').doc(userID)

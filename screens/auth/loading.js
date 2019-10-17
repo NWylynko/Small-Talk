@@ -6,6 +6,7 @@ import { useGlobal } from "reactn";
 import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
+const realDB = firebase.database();
 
 export default function Loading({ navigation }) {
   console.log("globals")
@@ -29,10 +30,10 @@ export default function Loading({ navigation }) {
 
     try {
       DB.collection('users').doc(userID)
-      .update({
-        providerData: firebase.auth().currentUser.providerData
-      })
-    } catch(err) {
+        .update({
+          providerData: firebase.auth().currentUser.providerData
+        })
+    } catch (err) {
       console.log("couldnt update providerData...")
       console.log(err)
     }
@@ -40,6 +41,8 @@ export default function Loading({ navigation }) {
     let snapshot = navigation.state.params.snapshot
 
     let new_me = snapshot.data()
+
+    if (new_me) {
     console.log(new_me)
 
     new_me.userID = userID
@@ -63,7 +66,7 @@ export default function Loading({ navigation }) {
 
     } else {
 
-      if (UNSUB_friend) { UNSUB_friend() }
+      if (UNSUB_friend) { UNSUB_friend(); console.log("unsubbing friend") }
 
       set_UNSUB_friend(DB.collection("users")
         .doc(userID)
@@ -73,19 +76,23 @@ export default function Loading({ navigation }) {
           console.log("set_FRIEND")
 
           let friend = snapshot.data()
-          console.log("snapshot id: " + snapshot.id)
-          friend.userID = snapshot.id
-          console.log(friend)
+          if (friend) {
+            console.log("snapshot id: " + snapshot.id)
 
-          set_FRIEND(friend);
+            friend.userID = snapshot.id
 
-          if (UNSUB_data) { UNSUB_data() }
 
-          set_UNSUB_data(DB.collection("messages")
-            .doc(friend.chatID)
-            .collection("chat")
-            .orderBy("timestamp", "desc")
-            .onSnapshot(snapshot => {
+            console.log(friend)
+
+            set_FRIEND(friend);
+
+            if (UNSUB_data) { UNSUB_data.off(); console.log("unsubbing messages") }
+
+            const messages = realDB.ref("msg/" + friend.chatID).orderByChild('timestamp')
+
+            set_UNSUB_data(messages)
+            
+            messages.on("value", function(snapshot) {
 
               var n;
 
@@ -97,8 +104,8 @@ export default function Loading({ navigation }) {
 
               var new_DATA = [];
 
-              snapshot.forEach(doc => {
-                let data = doc.data();
+              snapshot.forEach(data => {
+                data = data.val()
 
                 data.id = n.toString();
                 n++;
@@ -109,9 +116,14 @@ export default function Loading({ navigation }) {
                   data.from = false;
                 }
 
+                
+
                 new_DATA.push(data);
               });
-              console.log("SET_DATA")
+              console.log("SET_DATA...")
+              console.log(new_DATA)
+
+              new_DATA.reverse()
 
               if (!(DATA)) {
                 set_DATA(new_DATA);
@@ -122,20 +134,25 @@ export default function Loading({ navigation }) {
               console.log("navigate loading => App")
               navigation.navigate('App');
 
-            }));
 
-          console.log("friend chatID: " + friend.chatID)
-          console.log("friend uid: " + snapshot.id)
-          DB.collection('users').doc(new_me.userID)
-            .collection('friends').doc(snapshot.id)
-            .update({
-              seen: true
-            })
+            }, function (errorObject) {
+              console.log("The read failed: " + errorObject.code);
+            });
+
+            console.log("friend chatID: " + friend.chatID)
+            console.log("friend uid: " + snapshot.id)
+            DB.collection('users').doc(new_me.userID)
+              .collection('friends').doc(snapshot.id)
+              .update({
+                seen: true
+              })
+
+          }
 
         }));
     }
 
-    if (UNSUB_friends) { UNSUB_friends() }
+    if (UNSUB_friends) { UNSUB_friends(); console.log("unsubbed friends") }
 
     set_UNSUB_friends(DB.collection("users")
       .doc(userID)
@@ -166,6 +183,8 @@ export default function Loading({ navigation }) {
         set_FRIEND_DATA(new_DATA);
 
       }));
+    
+    }
 
   }, [false]);
 

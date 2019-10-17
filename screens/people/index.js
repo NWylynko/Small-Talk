@@ -49,18 +49,31 @@ function Item({ user, ME, navigation }) {
       style={styles.user}
     >
       <Text style={styles.name}>{user.nickname}</Text>
-      <Text style={styles.last}>{user.last_msg}</Text>
+      <SeenText style={styles.last} seen={user.seen} last_msg={user.last_msg} />
       <Text style={styles.time}>{time(user.last_timestamp)}</Text>
     </TouchableOpacity>
   );
 }
 
+function SeenText({ style, seen, last_msg }) {
+  if (!(seen)) {
+    return (
+      <Text style={[style, { fontWeight: 'bold' }]}>{last_msg}</Text>
+    )
+  } else {
+    return (
+      <Text style={style}>{last_msg}</Text>
+    )
+  }
+} 
+
 export default function People({ navigation }) {
 
-  const [global_FRIEND_DATA, global_set_FRIEND_DATA] = useGlobal('friend_data');
+  //const [global_FRIEND_DATA, global_set_FRIEND_DATA] = useGlobal('friend_data');
+  const [FRIEND_DATA, set_FRIEND_DATA] = useGlobal('friend_data');
   const [ME, set_ME] = useGlobal('me');
 
-  const [FRIEND_DATA, set_FRIEND_DATA] = useState(global_FRIEND_DATA);
+  //const [FRIEND_DATA, set_FRIEND_DATA] = useState(global_FRIEND_DATA);
   const [search, set_search] = useState('')
 
   function onpress_add() {
@@ -151,5 +164,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 50
+  },
+  last: {
+    paddingLeft: 10
   }
 });
