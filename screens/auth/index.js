@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, TouchableOpacity, Text, View, TextInput, KeyboardAvoidingView, ActivityIndicator } from "react-native";
+import { StyleSheet, TouchableOpacity, Text, View, TextInput, KeyboardAvoidingView } from "react-native";
 import Constants from "expo-constants";
 
 import firebase from "../../firebase/index";
 
 import * as GoogleSignIn from 'expo-google-sign-in';
 import * as AppAuth from 'expo-app-auth';
+
+import Loadpage from "../loading/index"
 
 // This value should contain your REVERSE_CLIENT_ID
 const { URLSchemes } = AppAuth;
@@ -98,10 +100,7 @@ export default function Login({ navigation }) {
 
   if (loading) {
     return (
-      <View style={styles.loading}>
-        <ActivityIndicator size="large" color="#0000ff" />
-        <Text>Authenticating...</Text>
-      </View>
+      <Loadpage text={"Authenticating..."} />
     )
   } else {
     return (

@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { Text, StyleSheet, View, ActivityIndicator } from "react-native";
 import { useGlobal } from 'reactn';
+
 import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
+
+import Loadpage from "../loading/index"
 
 let user_data = {}
 
@@ -51,20 +53,8 @@ export default function Switch({ navigation }) {
   }, [false]);
 
   return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color="#0000ff" />
-      <Text>Authenticating...</Text>
-    </View>
+    <Loadpage text={"Authenticating..."} />
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-});
 
 

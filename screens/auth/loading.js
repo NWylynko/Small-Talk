@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { Text, StyleSheet, View, ActivityIndicator } from "react-native";
 import Constants from "expo-constants";
 import { useGlobal } from "reactn";
+
+import Loadpage from "../loading/index"
 
 import firebase from "../../firebase/index";
 import "firebase/firestore";
@@ -179,18 +180,6 @@ export default function Loading({ navigation }) {
   }, [false]);
 
   return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color="#0000ff" />
-      <Text>Loading Data...</Text>
-    </View>
+    <Loadpage text={"Loading..."}/>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-});
