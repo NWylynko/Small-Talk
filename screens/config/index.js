@@ -4,6 +4,9 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-nativ
 //import { TouchableOpacity } from "react-native-gesture-handler";
 import Constants from "expo-constants";
 
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
+
 import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
@@ -23,6 +26,8 @@ export default function Config({ navigation }) {
   const [realname, set_realname] = useState(ME.realname)
   const [username, set_username] = useState(ME.username)
 
+  const [notif_off_on, set_notif_off_on] = useState(ME.notif ? "On" : "Off")
+
   function done() {
 
     var username_search;
@@ -34,11 +39,11 @@ export default function Config({ navigation }) {
     }
 
     DB.collection('users').doc(ME.userID)
-    .update({
-      realname,
-      username,
-      username_search
-    })
+      .update({
+        realname,
+        username,
+        username_search
+      })
 
     navigation.goBack();
   }
@@ -59,6 +64,18 @@ export default function Config({ navigation }) {
     });
   }
 
+  function notif_off() {
+    console.log("notif_off")
+  }
+
+  async function notif_on() {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+
+    console.log(existingStatus)
+  }
+
   if (loading) {
     return (
       <View style={styles.loading}>
@@ -70,10 +87,22 @@ export default function Config({ navigation }) {
     return (
       <View style={styles.container}>
 
+        <Text style={{textAlign: "center", fontSize: 32}} >Notifications: {notif_off_on}</Text>
+
+        <View style={{flexDirection: "row", justifyContent: "center", paddingBottom: 50}}>
+          <TouchableOpacity style={[styles.button, { margin: 5, width: "25%" }]} onPress={notif_off}>
+            <Text>Off</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.button, { margin: 5, width: "25%" }]} onPress={notif_on}>
+            <Text>On</Text>
+          </TouchableOpacity>
+        </View>
+
+
         <Line text={'Real Name'} option={realname} set={set_realname} />
         <Line text={' Username'} option={username} set={set_username} />
 
-        <TouchableOpacity style={[styles.button, {margin: 5, width: "50%"}]} onPress={done}>
+        <TouchableOpacity style={[styles.button, { margin: 5, width: "50%" }]} onPress={done}>
           <Text>Done</Text>
         </TouchableOpacity>
 
@@ -87,15 +116,15 @@ export default function Config({ navigation }) {
 
 function Line({ text, option, set }) {
   return (
-  <View style={{ flexDirection: "row", alignSelf: "center" }}>
-    <Text>{text}: </Text>
-    <TextInput
-      style={[styles.button, styles.line]}
-      onChangeText={text => set(text)}
-      value={option}
-      paddingLeft={10}
-    />
-  </View>)
+    <View style={{ flexDirection: "row", alignSelf: "center" }}>
+      <Text>{text}: </Text>
+      <TextInput
+        style={[styles.button, styles.line]}
+        onChangeText={text => set(text)}
+        value={option}
+        paddingLeft={10}
+      />
+    </View>)
 }
 
 const styles = StyleSheet.create({
@@ -119,7 +148,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignSelf: "center",
     position: "relative",
-    left: 10
+    //left: 10
   },
   logout: {
     borderColor: "#b32727",
