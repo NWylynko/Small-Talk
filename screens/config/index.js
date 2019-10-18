@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useGlobal } from 'reactn';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import { Platform, View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 //import { TouchableOpacity } from "react-native-gesture-handler";
 import Constants from "expo-constants";
+import expo from "../../app.json";
 
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
@@ -26,7 +27,7 @@ export default function Config({ navigation }) {
   const [realname, set_realname] = useState(ME.realname)
   const [username, set_username] = useState(ME.username)
 
-  const [notif_off_on, set_notif_off_on] = useState(ME.notif ? "On" : "Off")
+  const [notif_off_on, set_notif_off_on] = useState(ME.notification_token ? "On" : "Off")
 
   function done() {
 
@@ -64,16 +65,88 @@ export default function Config({ navigation }) {
     });
   }
 
-  function notif_off() {
-    console.log("notif_off")
+  async function notif_switch() {
+    if (Platform.OS === 'web') {
+      notif_desktop();
+    } else {
+      notif_mobile();
+    }
   }
 
-  async function notif_on() {
+  async function notif_mobile() {
+    set_notif_off_on("Loading...")
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
     );
 
     console.log(existingStatus)
+
+    if (existingStatus === 'granted') {
+      console.log("turning off notifications")
+    } else {
+      console.log("turning on notifications")
+
+      const { status: finalStatus } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+
+      if (finalStatus === 'granted') {
+        console.log("granteddd")
+        let token = await Notifications.getExpoPushTokenAsync();
+
+        DB.collection("users").doc(ME.userID)
+          .update({
+            notification_device: Platform.OS,
+            notification_token: token
+          })
+      }
+    }
+  }
+
+  function notif_desktop() {
+    set_notif_off_on("Loading...")
+
+    const messaging = firebase.messaging();
+    messaging.usePublicVapidKey(expo.expo.notification.vapidPublicKey);
+
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted.');
+
+
+        // Get Instance ID token. Initially this makes a network call, once retrieved
+        // subsequent calls to getToken will return from cache.
+        messaging.getToken().then((currentToken) => {
+          if (currentToken) {
+            console.log(currentToken)
+
+            //sendTokenToServer(currentToken);
+            //updateUIForPushEnabled(currentToken);
+
+            DB.collection("users").doc(ME.userID)
+              .update({
+                notification_device: 'desktop',
+                notification_token: currentToken
+              })
+
+            set_notif_off_on('On');
+          } else {
+            // Show permission request.
+            console.log('No Instance ID token available. Request permission to generate one.');
+            // Show permission UI.
+            //updateUIForPushPermissionRequired();
+            //setTokenSentToServer(false);
+          }
+        }).catch((err) => {
+          console.log('An error occurred while retrieving token. ', err);
+          //showToken('Error retrieving Instance ID token. ', err);
+          //setTokenSentToServer(false);
+        });
+
+
+
+      } else {
+        console.log('Unable to get permission to notify.');
+      }
+    });
   }
 
   if (loading) {
@@ -87,24 +160,24 @@ export default function Config({ navigation }) {
     return (
       <View style={styles.container}>
 
-        <Text style={{textAlign: "center", fontSize: 32}} >Notifications: {notif_off_on}</Text>
+        <View style={{ paddingBottom: 50 }} >
+          <Text style={{ textAlign: "center", fontSize: 32 }} >Me</Text>
 
-        <View style={{flexDirection: "row", justifyContent: "center", paddingBottom: 50}}>
-          <TouchableOpacity style={[styles.button, { margin: 5, width: "25%" }]} onPress={notif_off}>
-            <Text>Off</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, { margin: 5, width: "25%" }]} onPress={notif_on}>
-            <Text>On</Text>
+          <Line text={'Real Name'} option={realname} set={set_realname} />
+          <Line text={' Username'} option={username} set={set_username} />
+
+          <TouchableOpacity style={[styles.button, { margin: 5, width: "50%" }]} onPress={done}>
+            <Text>Done</Text>
           </TouchableOpacity>
         </View>
 
+        <Text style={{ textAlign: "center", fontSize: 32 }} >Notifications</Text>
 
-        <Line text={'Real Name'} option={realname} set={set_realname} />
-        <Line text={' Username'} option={username} set={set_username} />
-
-        <TouchableOpacity style={[styles.button, { margin: 5, width: "50%" }]} onPress={done}>
-          <Text>Done</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row", justifyContent: "center", paddingBottom: 50 }}>
+          <TouchableOpacity style={[styles.button, { margin: 5, width: "50%" }]} onPress={notif_switch}>
+            <Text>{notif_off_on}</Text>
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity style={[styles.button, styles.logout]} onPress={logout}>
           <Text>Logout</Text>
