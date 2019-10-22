@@ -9,6 +9,9 @@ import {
 import Loadpage from "../loading/index"
 import time from "../../tools/time";
 
+import { Notifications } from "expo";
+import * as Permissions from 'expo-permissions';
+
 import firebase from "../../firebase/index";
 import "firebase/firestore";
 const DB = firebase.firestore();
@@ -177,6 +180,8 @@ export default function Loading({
                 //the latest message needs show_timestamp set to true for some reason
                 new_DATA[0].show_timestamp = true
 
+                
+
                 set_DATA(new_DATA);
 
                 console.log("navigate loading => App")
@@ -229,8 +234,18 @@ export default function Loading({
 
             data.uid = doc.id
 
+            //if new message, display a notification
+            console.log(data.seen)
+            if (Date.now() - data.last_timestamp < 2500 && data.seen === false) {
+              sendNotification(data.nickname, data.last_msg.substring(0, 20))
+            }
+
             new_DATA.push(data);
           });
+
+         
+
+          
 
           set_FRIEND_DATA(new_DATA);
 
@@ -246,4 +261,17 @@ export default function Loading({
     }
   />
   );
+}
+
+async function sendNotification(title, body) {
+  const { status: existingStatus } = await Permissions.getAsync(
+    Permissions.NOTIFICATIONS
+  );
+
+  if (existingStatus === 'granted') {
+    await Notifications.presentLocalNotificationAsync({
+      title,
+      body,
+    })
+  }
 }

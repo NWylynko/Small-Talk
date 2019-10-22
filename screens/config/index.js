@@ -105,7 +105,7 @@ export default function Config({ navigation }) {
     set_notif_off_on("Loading...")
 
     const messaging = firebase.messaging();
-    messaging.usePublicVapidKey(expo.expo.notification.vapidPublicKey);
+    //messaging.usePublicVapidKey(expo.expo.notification.vapidPublicKey);
 
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
@@ -174,7 +174,7 @@ export default function Config({ navigation }) {
         <Text style={{ textAlign: "center", fontSize: 32 }} >Notifications</Text>
 
         <View style={{ flexDirection: "row", justifyContent: "center", paddingBottom: 50 }}>
-          <TouchableOpacity style={[styles.button, { margin: 5, width: "50%" }]} onPress={notif_switch}>
+          <TouchableOpacity style={[styles.button, { margin: 5, width: "50%" }]} onPress={notif_mobile}>
             <Text>{notif_off_on}</Text>
           </TouchableOpacity>
         </View>
