@@ -8,12 +8,28 @@ import time from "../../tools/time";
 
 function Item({ item }) {
 
-  return (
-    <View style={UserStyle(item.from)}>
-      <Text style={styles.msg}>{item.text}</Text>
-      <Text style={styles.time}>{time(item.timestamp)}</Text>
-    </View>
-  );
+  if (item.type === 'msg') {
+    if(item.show_timestamp) {
+      return (
+        <View style={UserStyle(item.from)}>
+          <Text style={styles.msg}>{item.text}</Text>
+          <Text style={styles.time}>{time(item.timestamp)}</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={UserStyle(item.from)}>
+          <Text style={styles.msg}>{item.text}</Text>
+        </View>
+      )
+    }
+    
+  } else if (item.type === 'space') {
+    return (
+      <Text> </Text>
+    )
+  }
+  
 }
 
 export default function Messages() {

@@ -50,19 +50,6 @@ function onSubmitEditing(data, FRIEND, onChangeText, ME) {
 
     realDB.ref("msg/" + FRIEND.chatID).push(postData);
 
-    // storeDB.collection("messages")
-    //   .doc(FRIEND.chatID)
-    //   .collection("chat")
-    //   .add(postData)
-    //   .then(function () {
-    //     // success
-
-    //     console.log("message sent")
-
-
-
-    //   });
-
     console.log("FRIEND userID: " + FRIEND.userID)
     console.log("ME userID: " + ME.userID)
 

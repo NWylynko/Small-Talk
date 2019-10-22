@@ -7,6 +7,7 @@ import {
 } from "reactn";
 
 import Loadpage from "../loading/index"
+import time from "../../tools/time";
 
 import firebase from "../../firebase/index";
 import "firebase/firestore";
@@ -61,6 +62,7 @@ export default function Loading({
         })
         set_DATA([{
           id: "0",
+          type: "msg",
           from: false,
           timestamp: Date.now(),
           text: "Welcome to Small Talk, " + new_me.realname + ", to get started press the button at the top, then click Add at the bottom and search for your friends"
@@ -122,24 +124,58 @@ export default function Loading({
                   data.id = n.toString();
                   n++;
 
+                  if (data.text) {
+                    data.type = 'msg'
+                  }
+
                   if (data.from === userID) {
                     data.from = true;
                   } else {
                     data.from = false;
                   }
 
-                  //if (new_DATA[new_DATA.length].from !== data.from) {
-                  //  new_DATA.push({ type: 'space' })
-                  //}
+                  //do funky things to make messages more interconnected
 
-                  console.log(new_DATA.length)
+                  let last = new_DATA[new_DATA.length - 1]
+
+                  if (last) {
+
+                    //add a space between change in person speaking
+
+                    if (last.from !== data.from) {
+                      new_DATA.push({
+                        type: 'space',
+                        id: n.toString()
+                      })
+                      n++
+
+
+                      // show the time for the last message before other client replyed
+                      last.show_timestamp = true
+
+                    } else {
+
+                      // show the time if the message before was a while ago
+                      if (time(last.timestamp) !== time(data.timestamp)) {
+                        last.show_timestamp = true
+                      }
+                    }
+
+
+                  }
+
+
 
                   new_DATA.push(data);
 
-                  
+
                 });
 
+                // the list gets reversed twice, once here and once on the flatlist
                 new_DATA.reverse()
+
+                //the latest message needs show_timestamp set to true for some reason
+                new_DATA[0].show_timestamp = true
 
                 set_DATA(new_DATA);
 
@@ -204,10 +240,10 @@ export default function Loading({
 
   }, [false]);
 
-  return ( <
-    Loadpage text = {
+  return (<
+    Loadpage text={
       "Loading..."
     }
-    />
+  />
   );
 }
