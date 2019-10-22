@@ -1,6 +1,10 @@
-import React, { useEffect } from "react";
+import React, {
+  useEffect
+} from "react";
 import Constants from "expo-constants";
-import { useGlobal } from "reactn";
+import {
+  useGlobal
+} from "reactn";
 
 import Loadpage from "../loading/index"
 
@@ -9,7 +13,9 @@ import "firebase/firestore";
 const DB = firebase.firestore();
 const realDB = firebase.database();
 
-export default function Loading({ navigation }) {
+export default function Loading({
+  navigation
+}) {
   console.log("globals")
   const [DATA, set_DATA] = useGlobal('data');
   const [ME, set_ME] = useGlobal('me');
@@ -73,7 +79,10 @@ export default function Loading({ navigation }) {
 
         console.log("getting friend data")
 
-        if (UNSUB_friend) { UNSUB_friend(); console.log("unsubbing friend") }
+        if (UNSUB_friend) {
+          UNSUB_friend();
+          console.log("unsubbing friend")
+        }
 
         set_UNSUB_friend(DB.collection("users")
           .doc(userID)
@@ -90,9 +99,14 @@ export default function Loading({ navigation }) {
 
               console.log(friend)
 
-              if (UNSUB_data) { UNSUB_data.off(); console.log("unsubbing messages") }
+              if (UNSUB_data) {
+                UNSUB_data.off();
+                console.log("unsubbing messages")
+              }
 
-              const messages = realDB.ref("msg/" + friend.chatID).orderByChild('timestamp')
+              const messages = realDB.ref("msg/" + friend.chatID)
+                .orderByChild('timestamp')
+                .limitToLast(50)
 
               messages.on("value", function (snapshot) {
 
@@ -103,7 +117,7 @@ export default function Loading({ navigation }) {
                 snapshot.forEach(data => {
                   data = data.val()
 
-                  console.log(data)
+                  //console.log(data)
 
                   data.id = n.toString();
                   n++;
@@ -114,7 +128,15 @@ export default function Loading({ navigation }) {
                     data.from = false;
                   }
 
+                  //if (new_DATA[new_DATA.length].from !== data.from) {
+                  //  new_DATA.push({ type: 'space' })
+                  //}
+
+                  console.log(new_DATA.length)
+
                   new_DATA.push(data);
+
+                  
                 });
 
                 new_DATA.reverse()
@@ -143,7 +165,10 @@ export default function Loading({ navigation }) {
           }));
       }
 
-      if (UNSUB_friends) { UNSUB_friends(); console.log("unsubbed friends") }
+      if (UNSUB_friends) {
+        UNSUB_friends();
+        console.log("unsubbed friends")
+      }
 
       set_UNSUB_friends(DB.collection("users")
         .doc(userID)
@@ -179,7 +204,10 @@ export default function Loading({ navigation }) {
 
   }, [false]);
 
-  return (
-    <Loadpage text={"Loading..."}/>
+  return ( <
+    Loadpage text = {
+      "Loading..."
+    }
+    />
   );
 }

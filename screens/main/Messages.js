@@ -20,6 +20,8 @@ export default function Messages() {
 
   const [DATA, set_DATA] = useGlobal('data');
 
+  console.log(DATA)
+
   return (
     <SafeAreaView style={styles.container}>
       
@@ -30,6 +32,7 @@ export default function Messages() {
           <Item item={item} />
         )}
         keyExtractor={item => item.id}
+        initialNumToRender={10}
         inverted
       />
     </SafeAreaView>
@@ -56,7 +59,6 @@ function UserStyle(from) {
       backgroundColor: config.style.colors.messages.message.me,
       padding: 10,
       marginLeft: 50,
-      marginVertical: 5,
       marginHorizontal: 10
     };
   } else {
@@ -64,7 +66,6 @@ function UserStyle(from) {
       backgroundColor: config.style.colors.messages.message.them,
       padding: 10,
       marginRight: 50,
-      marginVertical: 5,
       marginHorizontal: 10
     };
   }

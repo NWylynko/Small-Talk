@@ -45,7 +45,7 @@ function onSubmitEditing(data, FRIEND, onChangeText, ME) {
     var postData = {
       from: firebase.auth().currentUser.uid,
       text: data.nativeEvent.text,
-      timestamp: Date.now()
+      timestamp: firebase.database.ServerValue.TIMESTAMP
     };
 
     realDB.ref("msg/" + FRIEND.chatID).push(postData);
