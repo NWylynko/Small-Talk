@@ -14,7 +14,7 @@ to test:
 - clone repo
   - `git clone https://github.com/NWylynko/Small-Talk`
 - cd into app dir
-  - `cd Small-Talk/React-Native/small-talk`
+  - `cd small-talk`
 - install node packages
   - `expo install`
 
@@ -30,3 +30,10 @@ to test:
 - run expo
   - `expo start --web`
 - default browser will open and run app
+
+### build to package
+
+- `expo build:web`
+- `expo build:ios`
+- `expo build:android`
+- find build folder in smalltalk folder
