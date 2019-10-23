@@ -20,7 +20,6 @@ import People from "./people";
 import Back from "./back";
 
 import firebase from "../../firebase/index";
-import "firebase/firestore";
 const DB = firebase.firestore();
 
 var search_unsub;

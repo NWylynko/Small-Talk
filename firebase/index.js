@@ -1,6 +1,10 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
-import firebaseConfig from './auth.json';
+import "firebase/firestore"; // for user data
+import "firebase/database"; // for messages
+import "firebase/auth"; // to authenticate users
+
+import firebaseConfig from './auth.json'; // file with firebase api 
 
 firebase.initializeApp(firebaseConfig);
 

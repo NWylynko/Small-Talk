@@ -3,7 +3,6 @@ import { StyleSheet, TouchableOpacity, Text, View, TextInput, KeyboardAvoidingVi
 import Constants from "expo-constants";
 
 import firebase from "../../firebase/index";
-import "firebase/firestore";
 const DB = firebase.firestore();
 
 import generateSearch from "../../tools/generatesearch";

@@ -13,7 +13,7 @@ import { Notifications } from "expo";
 import * as Permissions from 'expo-permissions';
 
 import firebase from "../../firebase/index";
-import "firebase/firestore";
+
 const DB = firebase.firestore();
 const realDB = firebase.database();
 

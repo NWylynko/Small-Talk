@@ -6,7 +6,6 @@ import Constants from "expo-constants";
 import config from "../config.json";
 
 import firebase from "../../firebase/index";
-import "firebase/firestore";
 
 const storeDB = firebase.firestore();
 const realDB = firebase.database();

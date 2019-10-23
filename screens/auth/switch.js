@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useGlobal } from 'reactn';
 
 import firebase from "../../firebase/index";
-import "firebase/firestore";
 const DB = firebase.firestore();
 
 import Loadpage from "../loading/index"

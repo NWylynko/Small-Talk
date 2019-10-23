@@ -18,7 +18,6 @@ import time from "../../tools/time";
 import difference from '../../tools/search';
 
 import firebase from "../../firebase/index";
-import "firebase/firestore";
 const DB = firebase.firestore();
 
 import Input from "../add/Input";
