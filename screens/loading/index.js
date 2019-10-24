@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View, ActivityIndicator, Image, PixelRatio, Dimensions } from "react-native";
+import { Text, StyleSheet, View, ActivityIndicator, Image, Dimensions } from "react-native";
 
 export default function Loadpage({ text }) {
   return (

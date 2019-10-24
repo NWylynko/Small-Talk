@@ -3,6 +3,7 @@ import * as firebase from 'firebase/app';
 import "firebase/firestore"; // for user data
 import "firebase/database"; // for messages
 import "firebase/auth"; // to authenticate users
+import "firebase/storage" // for storing images
 
 import firebaseConfig from './auth.json'; // file with firebase api 
 

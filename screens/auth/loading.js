@@ -133,8 +133,9 @@ export default function Loading({
 
               var new_DATA = []; 
 
-              snapshot.forEach(data => {
-                data = data.val() // gets the data from the list of data
+              snapshot.forEach(pre_data => {
+                let data = pre_data.val() // gets the data from the list of data
+                data.uid = pre_data.key // get the uid of the json
 
                 //console.log(data)
 
@@ -143,6 +144,8 @@ export default function Loading({
 
                 if (data.text) { // if there is a text we can assume its a msg
                   data.type = 'msg'
+                } else if (data.image) {
+                  data.type = 'image'
                 }
 
                 if (data.from === userID) { // if the message from id is the clients id then the message has been sent by them

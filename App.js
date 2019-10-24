@@ -14,8 +14,8 @@ import Switch from "./screens/auth/switch";
 import Login from "./screens/auth/index";
 import NewUser from "./screens/auth/newuser";
 
-import Select from "./screens/photos/select";
 import Take from "./screens/photos/take";
+import Preview from "./screens/photos/preview";
 
 const screenOptions = {
   navigationOptions: {
@@ -44,7 +44,14 @@ const App = createStackNavigator({
     screen: Config,
     ...screenOptions
   },
-  Select
+  Take: {
+    screen: Take,
+    ...screenOptions
+  },
+  Preview: {
+    screen: Preview,
+    ...screenOptions
+  },
 });
 
 const Auth = createStackNavigator({

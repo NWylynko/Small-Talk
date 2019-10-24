@@ -15,7 +15,7 @@ export default function App({ navigation }) {
       <People_Select to={"People"} navigation={navigation} />
       <Messages />
       <Input />
-      <Images />
+      <Images navigation={navigation} />
     </View>
   );
 }

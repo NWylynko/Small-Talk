@@ -1,19 +1,57 @@
 import React from "react";
 //import { useGlobal } from 'reactn';
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import * as Permissions from 'expo-permissions';
+
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
 
 import config from "../config.json";
 
-export default function Images({ navigation, to}) {
+export default function Images({ navigation }) {
 
   //const [ME, set_ME] = useGlobal('me');
   //const [FRIEND, set_FRIEND] = useGlobal('friend');
 
-  function onPressSelect() {
-    console.log("brahhh moment")
+  async function onPressSelect() {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+        return;
+      }
+    }
+    
+    let image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+    });
+
+    if (!image.cancelled) {
+
+      if (image.width === 0 && image.height === 0) {
+        var img = new Image();
+        
+        img.onload = function() {
+          image.width = this.width;
+          image.height = this.height;
+          console.log(image)
+        }
+        img.src = image.uri;
+      }
+
+      await navigation.navigate('Preview', { image })
+    }
+
   }
-  function onPressTake() {
-    console.log("brahhh moment")
+  async function onPressTake() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    if (status !== 'granted') {
+      alert('Sorry, we need camera permissions to make this work!');
+      return;
+    }
+    console.log(status)
+    await navigation.navigate('Take', { status });
   }
   return (
     <View style={styles.container}>
