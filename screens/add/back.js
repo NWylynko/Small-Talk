@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import config from "../config.json";
-//import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Back({ navigation, search_unsub }) {
 
   function unsub() {
-    navigation.goBack();
+    navigation.goBack(); // go back the screen before (contacts page)
     if (search_unsub) {
       search_unsub();
     }

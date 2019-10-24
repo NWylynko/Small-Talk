@@ -1,19 +1,10 @@
 import React, { useState } from "react";
 import {
   SafeAreaView,
-  View,
-  FlatList,
   StyleSheet,
-  Text,
-  Image,
   KeyboardAvoidingView,
-  TextInput
 } from "react-native";
-//import { TouchableOpacity } from "react-native-gesture-handler";
 import Constants from "expo-constants";
-
-import config from "../config.json";
-import time from "../../tools/time";
 
 import Input from "./Input";
 import People from "./people";
