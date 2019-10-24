@@ -14,6 +14,9 @@ import Switch from "./screens/auth/switch";
 import Login from "./screens/auth/index";
 import NewUser from "./screens/auth/newuser";
 
+import Select from "./screens/photos/select";
+import Take from "./screens/photos/take";
+
 const screenOptions = {
   navigationOptions: {
     header: null
@@ -40,7 +43,8 @@ const App = createStackNavigator({
   Config: {
     screen: Config,
     ...screenOptions
-  }
+  },
+  Select
 });
 
 const Auth = createStackNavigator({
