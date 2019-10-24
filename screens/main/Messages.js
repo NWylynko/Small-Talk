@@ -11,14 +11,14 @@ function Item({ item }) {
   if (item.type === 'msg') {
     if(item.show_timestamp) {
       return (
-        <View style={UserStyle(item.from)}>
+        <View style={UserStyle(item.me)}>
           <Text style={styles.msg}>{item.text}</Text>
           <Text style={styles.time}>{time(item.timestamp)}</Text>
         </View>
       );
     } else {
       return (
-        <View style={UserStyle(item.from)}>
+        <View style={UserStyle(item.me)}>
           <Text style={styles.msg}>{item.text}</Text>
         </View>
       )
