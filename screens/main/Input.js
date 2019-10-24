@@ -81,6 +81,6 @@ const styles = StyleSheet.create({
   keyboard: {
     width: "100%",
     padding: 5,
-    marginBottom: Constants.statusBarHeight,
+    marginBottom: 3,
   }
 });

@@ -20,10 +20,6 @@ export default function Preview({ navigation }) {
 
   console.log(image)
 
-  const goback = () => {
-    navigation.goback()
-  };
-
   const send = () => {
 
     navigation.navigate('Home')
@@ -60,6 +56,15 @@ export default function Preview({ navigation }) {
 
     // Upload file and metadata to the object 'images/mountains.jpg'
     var uploadTask = storageRef.child('images/' + imageName).putString(image.uri, 'data_url');
+
+    // if (image.uri.substring(0, 4) === 'file') {
+    //   console.log("file")
+    //   uploadTask.put(image.uri);
+    // } else {
+    //   console.log("base64")
+    //   uploadTask.putString(image.uri, 'data_url');
+    // }
+
 
     // Listen for state changes, errors, and completion of the upload.
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -108,6 +113,9 @@ export default function Preview({ navigation }) {
       });
   }
 
+  console.log("image uriiiii")
+  console.log(image.uri)
+
   return (
     <ImageBackground source={image.uri} style={styles.container}>
 
@@ -117,17 +125,17 @@ export default function Preview({ navigation }) {
           flex: 1,
           backgroundColor: 'transparent',
         }}>
-          <TouchableOpacity
-            style={{
-              flex: 0.1,
-              padding: 25,
-              position: "absolute",
-              top: 0,
-              width: "100%"
-            }}
-            onPress={() => {navigation.goBack()}}>
-            <Text style={{ fontSize: 18, margin: 10, color: 'white' }}> Back </Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            flex: 0.1,
+            padding: 25,
+            position: "absolute",
+            top: 0,
+            width: "100%"
+          }}
+          onPress={() => { navigation.goBack() }}>
+          <Text style={{ fontSize: 18, margin: 10, color: 'white' }}> Back </Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={{
             alignItems: 'center',
@@ -152,6 +160,6 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     height: "100%",
-
+    backgroundColor: "black"
   }
 });

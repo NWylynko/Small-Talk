@@ -73,7 +73,7 @@ function Item({ item }) {
 
       let screenWidth = Math.round(Dimensions.get('window').width);
 
-      let imageWidth = screenWidth - 50 - 40
+      let imageWidth = screenWidth - 50 - 30
 
       let finalWidth;
 
