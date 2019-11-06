@@ -11,3 +11,4 @@ web-build/
 web-report/
 .gitsecret/keys/random_seed
 !*.secret
+.DS_Store
