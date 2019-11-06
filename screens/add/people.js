@@ -65,7 +65,7 @@ function Item({ item, me }) {
   }
 
   return (
-    <TouchableOpacity onPress={() => { press(item.uid) }}>
+    <TouchableOpacity onPress={() => { press(item.id) }}>
       <View style={styles.item}>
 
         <Text style={styles.name}>{item.realname}</Text>

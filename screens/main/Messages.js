@@ -38,7 +38,7 @@ function Item({ item }) {
     if (item.res) {
 
       // Create a reference to the file we want to download
-      var thumbnailRef = storageRef.child('images/thumbnails/' + item.uid + '_500x500.jpeg');
+      var thumbnailRef = storageRef.child('images/thumbnails/' + item.id + '_500x500.jpeg');
 
       // Get the download URL
       thumbnailRef.getDownloadURL().then(function (url) {
@@ -133,7 +133,7 @@ export default function Messages() {
           <Item item={item} />
         )}
         keyExtractor={item => item.id}
-        initialNumToRender={25}
+        initialNumToRender={15}
         inverted
       />
     </SafeAreaView>

@@ -34,7 +34,7 @@ export default function Contact({ navigation }) {
   useEffect(() => {
     set_loading(true)
     DB.collection("users")
-      .doc(CONTACT.uid)
+      .doc(CONTACT.id)
       .onSnapshot(snapshot => {
         const data = snapshot.data()
         let new_contact = CONTACT
@@ -51,7 +51,7 @@ export default function Contact({ navigation }) {
     console.log(nickname)
 
     DB.collection('users').doc(ME.userID)
-      .collection('friends').doc(CONTACT.uid)
+      .collection('friends').doc(CONTACT.id)
       .update({ nickname })
 
     navigation.goBack();
