@@ -36,7 +36,7 @@ function Select({ user, ME, navigation, newGroupChatPeople }) {
 
       console.log("before: " + newGroupChatPeople)
 
-      newGroupChatPeople.push(user.uid)
+      newGroupChatPeople.push(user.id)
 
       console.log("after: " + newGroupChatPeople)
     } else {
@@ -47,7 +47,7 @@ function Select({ user, ME, navigation, newGroupChatPeople }) {
 
       // if its selected but its pressed again, remove it
       newGroupChatPeople = newGroupChatPeople.filter((value, index, arr) => {
-        return value != user.uid;
+        return value != user.id;
       });
 
       console.log("after: " + newGroupChatPeople)
@@ -70,7 +70,7 @@ function Non_Select({ user, ME, navigation }) {
   function onPress() {
 
     DB.collection("users").doc(ME.userID).update({
-      current_friend: user.uid
+      current_friend: user.id
     });
 
     console.log("navigate People => Home")
@@ -174,7 +174,7 @@ export default function People({ navigation }) {
         data={FRIEND_DATA}
         extraData={FRIEND_DATA}
         renderItem={({ item }) => (
-          <Item select={true} user={item} ME={ME} navigation={navigation} newGroupChatPeople={newGroupChatPeople} />
+          <Item select={false} user={item} ME={ME} navigation={navigation} newGroupChatPeople={newGroupChatPeople} />
         )}
         keyExtractor={item => item.id}
       />
