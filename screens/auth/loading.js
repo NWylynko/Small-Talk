@@ -223,14 +223,6 @@ export default function Loading({
       .collection("friends")
       .onSnapshot(snapshot => {
 
-        var n;
-
-        if (!(FRIEND_DATA)) {
-          n = 0
-        } else {
-          n = FRIEND_DATA.length;
-        }
-
         var new_DATA = [];
 
         snapshot.forEach(doc => {
@@ -241,7 +233,7 @@ export default function Loading({
           //if new message, display a notification
           console.log(data.seen)
           if (Date.now() - data.last_timestamp < 2500 && data.seen === false) {
-            sendNotification(data.nickname, data.last_msg.substring(0, 20))
+            sendNotification(data.nickname, data.last_msg.substring(0, 50))
           }
 
           new_DATA.push(data);
