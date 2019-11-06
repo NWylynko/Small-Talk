@@ -20,11 +20,10 @@ export default function Back({ navigation, search_unsub }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: "20%",
     height: 50,
     borderColor: config.style.colors.add.input.border,
     borderWidth: 3,
-    marginLeft: 5,
+    margin: 5,
   },
   back: {
     fontSize: 32,

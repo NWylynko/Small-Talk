@@ -129,18 +129,11 @@ export default function Loading({
             // start listening for messages
             messages.on("value", function (snapshot) {
 
-              var n = 0; // all messages need an id so just give the messages an id from 0
-
               var new_DATA = []; 
 
               snapshot.forEach(pre_data => {
                 let data = pre_data.val() // gets the data from the list of data
-                data.uid = pre_data.key // get the uid of the json
-
-                //console.log(data)
-
-                data.id = n.toString(); // set an id
-                n++; // increment id
+                data.id = pre_data.key // get the uid of the js
 
                 if (data.text) { // if there is a text we can assume its a msg
                   data.type = 'msg'
@@ -165,9 +158,8 @@ export default function Loading({
                   if (last.from !== data.from) {
                     new_DATA.push({
                       type: 'space',
-                      id: n.toString()
+                      id: data.id + '4'
                     })
-                    n++
 
 
                     // show the time for the last message before other client replyed
@@ -244,10 +236,7 @@ export default function Loading({
         snapshot.forEach(doc => {
           let data = doc.data();
 
-          data.id = n.toString();
-          n++;
-
-          data.uid = doc.id
+          data.id = doc.id
 
           //if new message, display a notification
           console.log(data.seen)
