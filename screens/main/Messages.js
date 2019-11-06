@@ -133,7 +133,7 @@ export default function Messages() {
           <Item item={item} />
         )}
         keyExtractor={item => item.id}
-        initialNumToRender={20}
+        initialNumToRender={25}
         inverted
       />
     </SafeAreaView>
