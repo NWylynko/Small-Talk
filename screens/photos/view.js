@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
 import Constants from "expo-constants";
-
+import Loadpage from "../loading"
 import firebase from "../../firebase/index";
 const storageRef = firebase.storage().ref();
 
@@ -11,7 +11,10 @@ export default function ViewImage({ navigation }) {
   let smallimage = navigation.state.params.image
   let item = navigation.state.params.item
 
-  const [image, set_image] = useState(smallimage)
+  const [loading, set_loading] = useState(true)
+  const [image, set_image] = useState(null)
+  const [image_flex, set_image_flex] = useState(0)
+  const [smallimage_flex, set_smallimage_flex] = useState(1)
 
   console.log('showing view of image')
 
@@ -26,7 +29,6 @@ export default function ViewImage({ navigation }) {
       // Get the download URL
       thumbnailRef.getDownloadURL().then(function (url) {
         set_image(url)
-        set_Loading(false)
 
       }).catch(function (error) {
 
@@ -55,26 +57,49 @@ export default function ViewImage({ navigation }) {
 
   return (
 
-    <View style={styles.container}>
-      <Image
-        style={{ flex: 1 }}
-        source={{ uri: image }}
-      />
+    <>
 
-      <TouchableOpacity
-        style={{
-          flex: 0.1,
-          padding: 25,
-          position: "absolute",
-          top: 10,
-          left: 10,
-          width: "100%"
-        }}
-        onPress={() => { navigation.goBack() }}>
-        <Text style={{ fontSize: 18, margin: 10, color: 'white' }}> Back </Text>
-      </TouchableOpacity>
-    </View>
+      <Loadpage loading={loading} text={'loading image'} showicon={false} />
+
+      <View style={styles.container}>
+
+        <Image
+          style={{ flex: image_flex }}
+          source={{ uri: image }}
+          onLoad={() => {
+            set_image_flex(1)
+            set_smallimage_flex(0)
+            set_loading(false)
+            console.log("showing big image")
+          }}
+        />
+
+        <Image
+          style={{ flex: smallimage_flex }}
+          source={{ uri: smallimage }}
+          onLoad={() => {
+            set_loading(false)
+            console.log("showing small image")
+          }}
+        />
+
+        <TouchableOpacity
+          style={{
+            flex: 0.1,
+            padding: 25,
+            position: "absolute",
+            top: 10,
+            left: 10,
+            width: "100%"
+          }}
+          onPress={() => { navigation.goBack() }}>
+          <Text style={{ fontSize: 18, margin: 10, color: 'white' }}> Back </Text>
+        </TouchableOpacity>
+      </View>
+
+    </>
   );
+
 }
 
 

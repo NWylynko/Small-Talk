@@ -1,14 +1,21 @@
 import React from "react";
 import { Text, StyleSheet, View, ActivityIndicator, Image, Dimensions } from "react-native";
 
-export default function Loadpage({ text, showicon=true }) {
-  return (
-    <View style={styles.container}>
-      <ShowIcon show={showicon} />
-      <ActivityIndicator size="large" color="#b9e3f9" />
-      <Text style={{ fontSize: 32, color: "#b9e3f9" }} >{text}</Text>
-    </View>
-  )
+export default function Loadpage({ text, showicon=true, loading=true }) {
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ShowIcon show={showicon} />
+        <ActivityIndicator size="large" color="#b9e3f9" />
+        <Text style={{ fontSize: 32, color: "#b9e3f9" }} >{text}</Text>
+      </View>
+    )
+  } else {
+    return (null)
+  }
+
+
 }
 
 function ShowIcon({show}) {
