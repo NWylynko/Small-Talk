@@ -16,6 +16,7 @@ import NewUser from "./screens/auth/newuser";
 
 import Take from "./screens/photos/take";
 import Preview from "./screens/photos/preview";
+import ViewImage from "./screens/photos/view";
 
 const screenOptions = {
   navigationOptions: {
@@ -50,6 +51,10 @@ const App = createStackNavigator({
   },
   Preview: {
     screen: Preview,
+    ...screenOptions
+  },
+  ViewImage: {
+    screen: ViewImage,
     ...screenOptions
   },
 });

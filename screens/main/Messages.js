@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, FlatList, StyleSheet, Text, Dimensions, Image } from "react-native";
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Dimensions, Image, TouchableOpacity } from "react-native";
 import { useGlobal } from 'reactn';
 
 import config from "../config.json";
@@ -9,7 +9,7 @@ import time from "../../tools/time";
 import firebase from "../../firebase/index";
 const storageRef = firebase.storage().ref()
 
-function Item({ item }) {
+function Item({ item, navigation }) {
 
   const [error, set_error] = useState(null)
   const [image, set_image] = useState(null)
@@ -93,10 +93,15 @@ function Item({ item }) {
 
       return (
         <View style={UserStyle(item.me)}>
-          <Image
-            style={{ width, height }}
-            source={{ uri: image }}
-          />
+          <TouchableOpacity
+            onPress={() => {navigation.navigate('ViewImage', { item, image })}}
+          >
+            <Image
+              style={{ width, height }}
+              source={{ uri: image }}
+            />
+          </TouchableOpacity>
+
           <Text style={styles.msg}>{error}</Text>
           <Text style={styles.time}>{time(item.timestamp)}</Text>
         </View>
@@ -117,7 +122,7 @@ function Item({ item }) {
 
 }
 
-export default function Messages() {
+export default function Messages({ navigation }) {
 
   const [DATA, set_DATA] = useGlobal('data');
 
@@ -130,7 +135,7 @@ export default function Messages() {
         data={DATA}
         extraData={DATA}
         renderItem={({ item }) => (
-          <Item item={item} />
+          <Item item={item} navigation={navigation} />
         )}
         keyExtractor={item => item.id}
         initialNumToRender={15}
@@ -159,6 +164,7 @@ function UserStyle(from) {
     return {
       backgroundColor: config.style.colors.messages.message.me,
       padding: 10,
+      marginTop: -10,
       marginLeft: 50,
       marginHorizontal: 10
     };
@@ -166,6 +172,7 @@ function UserStyle(from) {
     return {
       backgroundColor: config.style.colors.messages.message.them,
       padding: 10,
+      marginTop: -10,
       marginRight: 50,
       marginHorizontal: 10
     };

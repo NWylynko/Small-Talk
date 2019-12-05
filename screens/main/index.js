@@ -13,7 +13,7 @@ export default function App({ navigation }) {
   return (
     <View style={styles.container}>
       <People_Select to={"People"} navigation={navigation} />
-      <Messages />
+      <Messages navigation={navigation} />
       <Input />
       <Images navigation={navigation} />
     </View>
