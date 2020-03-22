@@ -12,6 +12,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
+    "primaryColor": "#f95858",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
