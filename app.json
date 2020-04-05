@@ -1,10 +1,8 @@
 {
   "expo": {
-    "name": "Small Talk",
-    "slug": "small-talk",
+    "name": "Small-Talk",
+    "slug": "Small-Talk",
     "owner": "Nick Wylynko",
-    "privacy": "public",
-    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android",
@@ -12,7 +10,6 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "primaryColor": "#f95858",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
@@ -20,25 +17,32 @@
       "backgroundColor": "#f95858"
     },
     "updates": {
-      "enabled": true,
-      "checkAutomatically": "ON_LOAD",
-      "fallbackToCacheTimeout": 500
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.smalltalk.app",
-      "config": {
-        "googleSignIn": {
-          "reservedClientId": "com.googleusercontent.apps.36436457019-3u4lau2k5m2a971p54fgatuqo1b5icvi"
-        }
-      }
+      "bundleIdentifier": "app.web.small-talk-666",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
-        "package": "com.smalltalk.app",
-        "googleServicesFile": "./google-services.json"
+      "package": "app.web.small_talk_666",
+      "googleServicesFile": "./google-services.json"
+    },
+    "web": {
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyCDOVhwQcPOP6Vp-atS0newzstCSGTDssE",
+          "authDomain": "small-talk-666.firebaseapp.com",
+          "databaseURL": "https://small-talk-666.firebaseio.com",
+          "projectId": "small-talk-666",
+          "storageBucket": "small-talk-666.appspot.com",
+          "messagingSenderId": "36436457019",
+          "appId": "1:36436457019:web:fc0f4826e0a9d855d58e1e"
+        }
+      }
     }
   }
 }

@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:36436457019:android:54b5914a8c9d8b32d58e1e",
+        "mobilesdk_app_id": "1:36436457019:android:bdae0ba779d24e9cd58e1e",
         "android_client_info": {
-          "package_name": "com.smalltalk.app"
+          "package_name": "app.web.small_talk_666"
         }
       },
       "oauth_client": [
@@ -21,7 +21,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCDOVhwQcPOP6Vp-atS0newzstCSGTDssE"
+          "current_key": "AIzaSyCSaoEps6KSEthwIBvhIrFptPlT5thz5ZQ"
         }
       ],
       "services": {
@@ -32,10 +32,10 @@
               "client_type": 3
             },
             {
-              "client_id": "36436457019-4720j6jqotp2as51th1kksd94nels5d0.apps.googleusercontent.com",
+              "client_id": "36436457019-8s74910o0l475skahc5s2ibd5locoi3n.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.small-talk.app"
+                "bundle_id": "app.web.small-talk-666"
               }
             }
           ]
