@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Small-Talk",
+    "slug": "Small-Talk",
+    "owner": "Nick Wylynko",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f95858"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.web.small-talk-666",
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "android": {
+      "package": "app.web.small_talk_666",
+      "googleServicesFile": "./google-services.json"
+    },
+    "web": {
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyCDOVhwQcPOP6Vp-atS0newzstCSGTDssE",
+          "authDomain": "small-talk-666.firebaseapp.com",
+          "databaseURL": "https://small-talk-666.firebaseio.com",
+          "projectId": "small-talk-666",
+          "storageBucket": "small-talk-666.appspot.com",
+          "messagingSenderId": "36436457019",
+          "appId": "1:36436457019:web:fc0f4826e0a9d855d58e1e"
+        }
+      }
+    }
+  }
+}

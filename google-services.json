@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "36436457019",
+    "firebase_url": "https://small-talk-666.firebaseio.com",
+    "project_id": "small-talk-666",
+    "storage_bucket": "small-talk-666.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36436457019:android:bdae0ba779d24e9cd58e1e",
+        "android_client_info": {
+          "package_name": "app.web.small_talk_666"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "36436457019-4kcnv8l307ah4e3lpb1l9b1vddikf1e8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSaoEps6KSEthwIBvhIrFptPlT5thz5ZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "36436457019-4kcnv8l307ah4e3lpb1l9b1vddikf1e8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "36436457019-8s74910o0l475skahc5s2ibd5locoi3n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.web.small-talk-666"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

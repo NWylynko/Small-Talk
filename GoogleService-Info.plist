@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>36436457019-8s74910o0l475skahc5s2ibd5locoi3n.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.36436457019-8s74910o0l475skahc5s2ibd5locoi3n</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBu_-SWyfnqSeWZDLde6wcexGHsGWhoQ_s</string>
+	<key>GCM_SENDER_ID</key>
+	<string>36436457019</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>app.web.small-talk-666</string>
+	<key>PROJECT_ID</key>
+	<string>small-talk-666</string>
+	<key>STORAGE_BUCKET</key>
+	<string>small-talk-666.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:36436457019:ios:2e0b8593e71dfb61d58e1e</string>
+	<key>DATABASE_URL</key>
+	<string>https://small-talk-666.firebaseio.com</string>
+</dict>
+</plist>
